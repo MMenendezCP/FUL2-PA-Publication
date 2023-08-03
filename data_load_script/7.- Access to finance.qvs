@@ -1,0 +1,195 @@
+///$tab 7.- Access to finance
+[Public financial support]:
+LOAD
+    [x1val]								AS [ISO_code],
+    num([y1val])						AS [Public financial support Year1],
+    [y2val]								AS [Public financial support Year2]
+    
+where [x1val] <> 'Country';
+
+LIB CONNECT TO '$(text_connection)REST_PA_ATF_ACC_PUB_SUP.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val",
+	"y2val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+
+[Time to get paid by businesses days]:
+LOAD
+    [x1val]								AS [ISO_code],
+    [y1val]								AS [Time to get paid]
+    
+where [x1val] <> 'Country'; 
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_ATF_TIME_PAID_BUS.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+[Venture capital]:
+LOAD
+    [x1val]								AS [ISO_code],
+    [y1val]								AS [Venture capital Year1],
+    [y2val]								AS [Venture capital Year2],
+    [y3val]								AS [Venture capital Change]
+
+where [x1val] <> 'Country';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_ATF_VEN_CAP_GDP.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val",
+	"y2val",
+	"y3val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+
+ALLMETRICS_Admin_Market_PProcu_Ecertis_Services_Postal_Finance:
+NoConcatenate
+LOAD
+    [ISO_code],
+    [Reg_Year],
+    [Reg_Rate],
+    [Bus_Year],
+    [Delays_Year1],
+    [Delays_Year2],
+    [Insolventy_Year],
+    [Impact_Major_Obs],
+    [Impact_Minor_Obs],
+    [Impact_Growth],
+// --------------------------------------------------------------
+    [Inv_COU_LastYear],
+    [Inv_COU_Change],
+    [NonInv_PER_LastYear],
+    [NonInv_PER_Change],
+// --------------------------------------------------------------
+	[Indicator 1PProcu],
+	[Indicator 1.2PProcu],
+	[Indicator 1.3PProcu],
+	[Indicator 1.4PProcu],
+	[Indicator 2PProcu],
+	[Indicator 2.2PProcu],
+	[Indicator 2.3PProcu],
+	[Indicator 2.4PProcu],
+	[Indicator 3PProcu],
+	[Indicator 3.2PProcu],
+	[Indicator 3.3PProcu],
+   	[Indicator 3.4PProcu],
+	[Indicator 4PProcu],
+	[Indicator 4.2PProcu],
+	[Indicator 4.3PProcu],
+	[Indicator 4.4PProcu],
+	[Indicator 5PProcu],
+	[Indicator 5.2PProcu],
+	[Indicator 5.3PProcu],
+	[Indicator 5.4PProcu],
+	[Indicator 6PProcu],
+	[Indicator 6.2PProcu],
+	[Indicator 6.3PProcu],
+	[Indicator 6.4PProcu],
+	[Indicator 7PProcu],
+	[Indicator 7.2PProcu],
+	[Indicator 7.3PProcu],
+    [Indicator 7.4PProcu],
+	[Indicator 8PProcu],
+	[Indicator 8.2PProcu],
+	[Indicator 8.3PProcu],
+    [Indicator 8.4PProcu],
+	[Indicator 9PProcu],
+	[Indicator 9.2PProcu],
+	[Indicator 9.3PProcu],
+	[Indicator 9.4PProcu],
+	[Indicator 10PProcu],
+	[Indicator 10.2PProcu],
+	[Indicator 10.3PProcu],
+	[Indicator 10.4PProcu],
+	[Indicator 11PProcu],
+	[Indicator 11.2PProcu],
+	[Indicator 11.3PProcu],
+    [Indicator 11.4PProcu],
+	[Indicator 12PProcu],
+	[Indicator 12.2PProcu],
+	[Indicator 12.3PProcu],
+	[Indicator 12.4PProcu],
+// --------------------------------------------------------------
+    IndicatorGroup_ID,
+	[Indicator 1Certis EG-CC],
+    [Indicator 1Certis EG-PT],
+    [Indicator 1Certis EG-INS],
+    [Sum eCertis indic 1.1],
+    [Indicator 2Certis EG-CC],
+    [Indicator 2Certis EG-PT],
+    [Indicator 2Certis EG-INS],
+    [Sum eCertis indic 2.1],
+    [Indicator 1Certis SC-EF],
+    [Indicator 1Certis SC-QA],
+    [Indicator 1Certis SC-ST],
+    [Indicator 1Certis SC-TP],
+    [Sum eCertis indic 1.2],
+    [Indicator 2Certis SC-EF],
+    [Indicator 2Certis SC-QA],
+    [Indicator 2Certis SC-ST],
+    [Indicator 2Certis SC-TP],
+    [Sum eCertis indic 2.2],
+    [Evidence types],
+	[eCertis evicences],
+	[Proced evidence],
+    [Percentage of items of evidence available online],
+	[Percentage of items of evidence with samples],
+// --------------------------------------------------------------
+    [Indicator Res Architect Last_Year],
+    [Indicator Res Architect Base_Year],
+    [Indicator Res Accountant Last_Year],
+    [Indicator Res Accountant Base_Year],
+    [Indicator Res Engineer Last_Year],
+    [Indicator Res Engineer Base_Year],
+    [Indicator Res Lawyer Last_Year],
+    [Indicator Res Lawyer Base_Year],
+    [Indicator Res RE_Agent Last_Year],
+    [Indicator Res RE_Agent Base_Year],
+    [Indicator Res Patent_Agent Last_Year],
+    [Indicator Res Patent_Agent Base_Year],
+    [Indicator Res Tourist guide Last_Year],
+    [Indicator Res Tourist guide Base_Year],
+    [Pending Recognition],
+    [Negative Recognition],
+    [Positive Recognition],
+// --------------------------------------------------------------
+    [Priority letters Domestic],
+    [Priority letters intra EU],
+    [Priority letters Change]
+Resident [ALLMETRICS_Admin_Market_PProcu_Ecertis_Services_Postal];
+// --------------------------------------------------------------
+left join
+LOAD
+    [ISO_code],
+    [Public financial support Year1],
+    [Public financial support Year2]
+Resident [Public financial support];
+left join
+LOAD
+    [ISO_code],
+    [Time to get paid]
+Resident [Time to get paid by businesses days];
+outer join
+LOAD
+    [ISO_code],
+    [Venture capital Year1],
+    [Venture capital Year2],
+    [Venture capital Change]
+Resident [Venture capital];
+
+
+Drop Table [Public financial support], [Time to get paid by businesses days], [Venture capital];
+
+Drop Table ALLMETRICS_Admin_Market_PProcu_Ecertis_Services_Postal;

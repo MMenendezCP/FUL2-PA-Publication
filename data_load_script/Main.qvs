@@ -1,0 +1,71 @@
+///$tab Main
+SET ThousandSep=',';
+SET DecimalSep='.';
+SET MoneyThousandSep=',';
+SET MoneyDecimalSep='.';
+SET MoneyFormat='$#,##0.00;-$#,##0.00';
+SET TimeFormat='h:mm:ss TT';
+SET DateFormat='M/D/YYYY';
+SET TimestampFormat='M/D/YYYY h:mm:ss[.fff] TT';
+SET FirstWeekDay=6;
+SET BrokenWeeks=1;
+SET ReferenceDay=0;
+SET FirstMonthOfYear=1;
+SET CollationLocale='en-US';
+SET CreateSearchIndexOnReload=1;
+SET MonthNames='Jan;Feb;Mar;Apr;May;Jun;Jul;Aug;Sep;Oct;Nov;Dec';
+SET LongMonthNames='January;February;March;April;May;June;July;August;September;October;November;December';
+SET DayNames='Mon;Tue;Wed;Thu;Fri;Sat;Sun';
+SET LongDayNames='Monday;Tuesday;Wednesday;Thursday;Friday;Saturday;Sunday';
+SET NumericalAbbreviation='3:k;6:M;9:G;12:T;15:P;18:E;21:Z;24:Y;-3:m;-6:μ;-9:n;-12:p;-15:f;-18:a;-21:z;-24:y';
+
+
+
+SysActualYear	=	Date(now(),'YYYY');
+SysLastYear		=	Date(AddYears(SysActualYear,-1),'YYYY');
+SysTwoYearsAgo	=	Date(AddYears(SysActualYear,-2),'YYYY');
+SysTreeYearsAgo	=	Date(AddYears(SysActualYear,-3),'YYYY');
+SysFourYearsAgo	=	Date(AddYears(SysActualYear,-4),'YYYY');
+SysFiveYearsAgo	=	Date(AddYears(SysActualYear,-5),'YYYY');
+SysSixYearsAgo	=	Date(AddYears(SysActualYear,-6),'YYYY');
+
+
+text_connection = If(SubStringCount(DocumentTitle(), 'Full') >= 1, 'NEWEDIT_', 'PROD_');
+
+
+
+Indicators_DIM:
+LOAD * Inline [
+Indicator_ID, 		indicator, 						indicator_print,	 PPcruflag, eCertisflag, 	Euresflag
+1, 				'Indicator 1PProcu', 				'Indicator 1', 		1, 			0, 				0
+2, 				'Indicator 2PProcu', 				'Indicator 2', 		1, 			0, 				0
+3, 				'Indicator 3PProcu', 				'Indicator 3', 		1, 			0, 				0
+4, 				'Indicator 4PProcu', 				'Indicator 4', 		1, 			0, 				0
+5, 				'Indicator 5PProcu', 				'Indicator 5', 		1, 			0, 				0
+6, 				'Indicator 6PProcu', 				'Indicator 6', 		1, 			0, 				0
+7, 				'Indicator 7PProcu', 				'Indicator 7', 		1, 			0, 				0
+8, 				'Indicator 8PProcu', 				'Indicator 8', 		1, 			0, 				0
+9, 				'Indicator 9PProcu', 				'Indicator 9', 		1, 			0, 				0
+10, 			'Indicator 10PProcu',				'Indicator 10',		1, 			0, 				0
+11, 			'Indicator 11PProcu',				'Indicator 11',		1, 			0, 				0
+12, 			'Indicator 12PProcu',				'Indicator 12',		1, 			0, 				0
+13, 			'Indicator 1Certis EG-CC',			'EG-CC',			0,			1, 				0
+14,				'Indicator 1Certis EG-PT',			'EG-PT',			0,			1, 				0
+15,				'Indicator 1Certis EG-INS',			'EG-INS',			0,			1, 				0
+16, 			'Indicator 2Certis EG-CC',			'EG-CC',			0,			2, 				0
+17,				'Indicator 2Certis EG-PT',			'EG-PT',			0,			2, 				0
+18,				'Indicator 2Certis EG-INS',			'EG-INS',			0,			2, 				0
+17,				'Indicator 1Certis SC-EF',			'SC-EF',			0,			3, 				0
+18,				'Indicator 1Certis SC-QA',			'SC-QA',			0,			3, 				0
+19, 			'Indicator 1Certis SC-ST',			'SC-ST',			0,			3, 				0
+20,				'Indicator 1Certis SC-TP',			'SC-TP',			0,			3, 				0
+21,				'Indicator 2Certis SC-EF',			'SC-EF',			0,			4, 				0
+22,				'Indicator 2Certis SC-QA',			'SC-QA',			0,			4, 				0
+23, 			'Indicator 2Certis SC-ST',			'SC-ST',			0,			4, 				0
+24,				'Indicator 2Certis SC-TP',			'SC-TP',			0,			4, 				0
+25, 			'Indicator 1Eures', 				'Indicator 1', 		0, 			0,				1
+26, 			'Indicator 2Eures', 				'Indicator 2', 		0, 			0,				1
+27, 			'Indicator 3Eures', 				'Indicator 3', 		0, 			0,				1
+28, 			'Indicator 4Eures', 				'Indicator 4', 		0, 			0,				1
+29, 			'Indicator 5Eures', 				'Indicator 5', 		0, 			0,				1
+];

@@ -1,0 +1,1203 @@
+[
+  {
+    "qName": "Bus_Year",
+    "qTags": [
+      "$numeric"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Delays_Year1",
+    "qTags": [],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Delays_Year2",
+    "qTags": [],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Euresflag",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "Indicators_DIM"
+    ]
+  },
+  {
+    "qName": "Evidence types",
+    "qTags": [
+      "$ascii",
+      "$text"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Highest_INV_LastYear",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "Highest number of investigations"
+    ]
+  },
+  {
+    "qName": "Highest_NON_COM_LastYear",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "Highest number of investigations"
+    ]
+  },
+  {
+    "qName": "Highest_RAN_Change",
+    "qTags": [
+      "$numeric"
+    ],
+    "qSrcTables": [
+      "Highest number of investigations"
+    ]
+  },
+  {
+    "qName": "ISO_code",
+    "qTags": [
+      "$ascii",
+      "$text"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Impact_Growth",
+    "qTags": [
+      "$numeric"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Impact_Major_Obs",
+    "qTags": [
+      "$numeric"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Impact_Minor_Obs",
+    "qTags": [
+      "$numeric"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 1.2PProcu",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 1.3PProcu",
+    "qTags": [],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 1.4PProcu",
+    "qTags": [],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 10.2PProcu",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 10.3PProcu",
+    "qTags": [],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 10.4PProcu",
+    "qTags": [],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 10PProcu",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 11.2PProcu",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 11.3PProcu",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 11.4PProcu",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 11PProcu",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 12.2PProcu",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 12.3PProcu",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 12.4PProcu",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 12PProcu",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 1Certis EG-CC",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 1Certis EG-INS",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 1Certis EG-PT",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 1Certis SC-EF",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 1Certis SC-QA",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 1Certis SC-ST",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 1Certis SC-TP",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 1Eures",
+    "qTags": [
+      "$numeric"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 1PProcu",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 2.2PProcu",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 2.3PProcu",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 2.4PProcu",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 2Certis EG-CC",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 2Certis EG-INS",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 2Certis EG-PT",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 2Certis SC-EF",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 2Certis SC-QA",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 2Certis SC-ST",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 2Certis SC-TP",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 2Eures",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 2PProcu",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 3.2PProcu",
+    "qTags": [],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 3.3PProcu",
+    "qTags": [],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 3.4PProcu",
+    "qTags": [],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 3Eures",
+    "qTags": [],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 3PProcu",
+    "qTags": [],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 4.2PProcu",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 4.3PProcu",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 4.4PProcu",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 4Eures",
+    "qTags": [],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 4PProcu",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 5.2PProcu",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 5.3PProcu",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 5.4PProcu",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 5Eures",
+    "qTags": [],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 5PProcu",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 6.2PProcu",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 6.3PProcu",
+    "qTags": [],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 6.4PProcu",
+    "qTags": [],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 6PProcu",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 7.2PProcu",
+    "qTags": [],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 7.3PProcu",
+    "qTags": [],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 7.4PProcu",
+    "qTags": [],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 7PProcu",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 8.2PProcu",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 8.3PProcu",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 8.4PProcu",
+    "qTags": [],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 8PProcu",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 9.2PProcu",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 9.3PProcu",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 9.4PProcu",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator 9PProcu",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator Res Accountant Base_Year",
+    "qTags": [
+      "$numeric"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator Res Accountant Last_Year",
+    "qTags": [
+      "$numeric"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator Res Architect Base_Year",
+    "qTags": [
+      "$numeric"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator Res Architect Last_Year",
+    "qTags": [
+      "$numeric"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator Res Engineer Base_Year",
+    "qTags": [
+      "$numeric"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator Res Engineer Last_Year",
+    "qTags": [
+      "$numeric"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator Res Lawyer Base_Year",
+    "qTags": [
+      "$numeric"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator Res Lawyer Last_Year",
+    "qTags": [
+      "$numeric"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator Res Patent_Agent Base_Year",
+    "qTags": [
+      "$numeric"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator Res Patent_Agent Last_Year",
+    "qTags": [
+      "$numeric"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator Res RE_Agent Base_Year",
+    "qTags": [
+      "$numeric"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator Res RE_Agent Last_Year",
+    "qTags": [
+      "$numeric"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator Res Tourist guide Base_Year",
+    "qTags": [
+      "$numeric"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator Res Tourist guide Last_Year",
+    "qTags": [
+      "$numeric"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "IndicatorGroup_ID",
+    "qTags": [
+      "$ascii",
+      "$text"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Indicator_ID",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "Indicators_DIM"
+    ]
+  },
+  {
+    "qName": "Insolventy_Year",
+    "qTags": [
+      "$numeric"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Inv_COU_Change",
+    "qTags": [
+      "$numeric"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Inv_COU_LastYear",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Inv_Sector",
+    "qTags": [
+      "$ascii",
+      "$text"
+    ],
+    "qSrcTables": [
+      "Highest number of investigations"
+    ]
+  },
+  {
+    "qName": "Negative Recognition",
+    "qTags": [
+      "$numeric"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "NonInv_PER_Change",
+    "qTags": [
+      "$numeric"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "NonInv_PER_LastYear",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "PPcruflag",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "Indicators_DIM"
+    ]
+  },
+  {
+    "qName": "Pending Recognition",
+    "qTags": [
+      "$numeric"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Percentage of items of evidence available online",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Percentage of items of evidence with samples",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Positive Recognition",
+    "qTags": [
+      "$numeric"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Positive recognition rates",
+    "qTags": [
+      "$numeric"
+    ],
+    "qSrcTables": [
+      "Positive recognition rates"
+    ]
+  },
+  {
+    "qName": "Priority letters Change",
+    "qTags": [],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Priority letters Domestic",
+    "qTags": [],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Priority letters intra EU",
+    "qTags": [],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Proced evidence",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Profession",
+    "qTags": [
+      "$ascii",
+      "$text"
+    ],
+    "qSrcTables": [
+      "Positive recognition rates"
+    ]
+  },
+  {
+    "qName": "Public financial support Year1",
+    "qTags": [
+      "$numeric"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Public financial support Year2",
+    "qTags": [],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Reg_Rate",
+    "qTags": [],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Reg_Year",
+    "qTags": [
+      "$numeric"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Sum eCertis indic 1.1",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Sum eCertis indic 1.2",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Sum eCertis indic 2.1",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Sum eCertis indic 2.2",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Time to get paid",
+    "qTags": [],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Venture capital Change",
+    "qTags": [
+      "$numeric"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Venture capital Year1",
+    "qTags": [
+      "$numeric"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "Venture capital Year2",
+    "qTags": [
+      "$numeric"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "change 2017-2020",
+    "qTags": [
+      "$numeric"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "eCertis evicences",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  },
+  {
+    "qName": "eCertisflag",
+    "qTags": [
+      "$numeric",
+      "$integer"
+    ],
+    "qSrcTables": [
+      "Indicators_DIM"
+    ]
+  },
+  {
+    "qName": "indicator",
+    "qTags": [
+      "$ascii",
+      "$text"
+    ],
+    "qSrcTables": [
+      "Indicators_DIM"
+    ]
+  },
+  {
+    "qName": "indicator_print",
+    "qTags": [
+      "$ascii",
+      "$text"
+    ],
+    "qSrcTables": [
+      "Indicators_DIM"
+    ]
+  },
+  {
+    "qName": "share 2020",
+    "qTags": [
+      "$numeric"
+    ],
+    "qSrcTables": [
+      "ALLMETRICS_Final"
+    ]
+  }
+]

@@ -1,0 +1,15 @@
+{
+  "qInfo": {
+    "qId": "a05ac688-5a14-42a0-bb31-790550d03bdb",
+    "qType": "variable"
+  },
+  "qMetaDef": {},
+  "qName": "text_connection",
+  "qNumberPresentation": {
+    "qType": "U",
+    "qnDec": 10,
+    "qUseThou": 0
+  },
+  "qDefinition": "PROD_",
+  "qIsScriptCreated": true
+}

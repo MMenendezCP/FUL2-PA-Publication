@@ -1,0 +1,356 @@
+{
+  "qProperty": {
+    "qInfo": {
+      "qId": "a6817b63-1f8f-4863-872d-d737a21979ef",
+      "qType": "sheet"
+    },
+    "qMetaDef": {
+      "title": "eCertis - Performance indicators",
+      "description": ""
+    },
+    "rank": 20,
+    "thumbnail": {
+      "qStaticContentUrlDef": {}
+    },
+    "columns": 24,
+    "rows": 12,
+    "cells": [
+      {
+        "name": "tBAbNrP",
+        "type": "sms_heatmap_summary",
+        "col": 0,
+        "row": 0,
+        "colspan": 23,
+        "rowspan": 6,
+        "bounds": {
+          "y": 0,
+          "x": 0,
+          "width": 95.83333333333334,
+          "height": 50
+        }
+      }
+    ],
+    "qChildListDef": {
+      "qData": {
+        "title": "/title"
+      }
+    },
+    "gridResolution": "small",
+    "layoutOptions": {
+      "mobileLayout": "LIST"
+    },
+    "gridMode": "edit"
+  },
+  "qChildren": [
+    {
+      "qProperty": {
+        "qInfo": {
+          "qId": "tBAbNrP",
+          "qType": "sms_heatmap_summary"
+        },
+        "qMetaDef": {},
+        "qHyperCubeDef": {
+          "qDimensions": [
+            {
+              "qDef": {
+                "qGrouping": "N",
+                "qFieldDefs": [
+                  "=if ( not isnull(IndicatorGroup_ID), [ISO_code])\r\n\n/*\n=if (not IsNull([Sum eCertis indic 1.1]) or not isnull([Indicator 2Certis EG-INS]), [ISO_code]) /* \n\n\n\n\n\n or not IsNull([Indicator 1Certis EG-CC]) or not IsNull([Indicator 2Certis EG-CC])"
+                ],
+                "qFieldLabels": [
+                  ""
+                ],
+                "qSortCriterias": [
+                  {
+                    "qSortByNumeric": 1,
+                    "qSortByAscii": 1,
+                    "qSortByLoadOrder": 1,
+                    "qSortByExpression": 1,
+                    "qExpression": {
+                      "qv": "Match([ISO_code],'AT','BE','BG','CY','CZ','DK','DE','EE','EL','ES','FI','FR','HR','HU','IE','IT','LT','LU','LV','MT','NL','PL','PT','RO','SE','SI','SK','CH','IS','LI','NO','UK')"
+                    }
+                  }
+                ],
+                "qNumberPresentations": [],
+                "qActiveField": 0,
+                "autoSort": false,
+                "cId": "KLXJKn",
+                "othersLabel": "Others"
+              },
+              "qNullSuppression": true,
+              "qOtherTotalSpec": {
+                "qOtherMode": "OTHER_OFF",
+                "qOtherCounted": {
+                  "qv": "10"
+                },
+                "qOtherLimit": {
+                  "qv": "0"
+                },
+                "qOtherLimitMode": "OTHER_GE_LIMIT",
+                "qForceBadValueKeeping": true,
+                "qApplyEvenWhenPossiblyWrongResult": true,
+                "qOtherSortMode": "OTHER_SORT_DESCENDING",
+                "qTotalMode": "TOTAL_OFF",
+                "qReferencedExpression": {}
+              },
+              "qOtherLabel": {
+                "qv": "Others"
+              },
+              "qTotalLabel": {},
+              "qCalcCond": {},
+              "qAttributeExpressions": [],
+              "qAttributeDimensions": [],
+              "qCalcCondition": {
+                "qCond": {},
+                "qMsg": {}
+              }
+            },
+            {
+              "qDef": {
+                "qGrouping": "N",
+                "qFieldDefs": [
+                  "= IndicatorGroup_ID\r\n/*\n\nif (IndicatorGroup_ID <> '-',\nif(IndicatorGroup_ID='Evidence completeness [2]','Evidence completeness [2]',\n\tIF(IndicatorGroup_ID='criteria completeness [1]', 'Criteria completeness [1]',IndicatorGroup_ID)))\n    \n/*    =if (IndicatorGROUP = 'Criteria completeness [1]', IndicatorGROUP)\n"
+                ],
+                "qFieldLabels": [
+                  ""
+                ],
+                "qSortCriterias": [
+                  {
+                    "qSortByNumeric": 1,
+                    "qSortByAscii": 1,
+                    "qSortByLoadOrder": 1,
+                    "qExpression": {}
+                  }
+                ],
+                "qNumberPresentations": [],
+                "qActiveField": 0,
+                "autoSort": true,
+                "cId": "fBYn",
+                "othersLabel": "Others"
+              },
+              "qNullSuppression": true,
+              "qOtherTotalSpec": {
+                "qOtherMode": "OTHER_OFF",
+                "qOtherCounted": {
+                  "qv": "10"
+                },
+                "qOtherLimit": {
+                  "qv": "0"
+                },
+                "qOtherLimitMode": "OTHER_GE_LIMIT",
+                "qForceBadValueKeeping": true,
+                "qApplyEvenWhenPossiblyWrongResult": true,
+                "qOtherSortMode": "OTHER_SORT_DESCENDING",
+                "qTotalMode": "TOTAL_OFF",
+                "qReferencedExpression": {}
+              },
+              "qOtherLabel": {
+                "qv": "Others"
+              },
+              "qTotalLabel": {},
+              "qCalcCond": {},
+              "qAttributeExpressions": [],
+              "qAttributeDimensions": [],
+              "qCalcCondition": {
+                "qCond": {},
+                "qMsg": {}
+              }
+            },
+            {
+              "qDef": {
+                "qGrouping": "N",
+                "qFieldDefs": [
+                  "=1"
+                ],
+                "qFieldLabels": [
+                  ""
+                ],
+                "qSortCriterias": [
+                  {
+                    "qSortByLoadOrder": 1,
+                    "qExpression": {}
+                  }
+                ],
+                "qNumberPresentations": [],
+                "qActiveField": 0,
+                "autoSort": true,
+                "cId": "csdED",
+                "othersLabel": "Others"
+              },
+              "qOtherTotalSpec": {
+                "qOtherMode": "OTHER_OFF",
+                "qOtherCounted": {
+                  "qv": "10"
+                },
+                "qOtherLimit": {
+                  "qv": "0"
+                },
+                "qOtherLimitMode": "OTHER_GE_LIMIT",
+                "qForceBadValueKeeping": true,
+                "qApplyEvenWhenPossiblyWrongResult": true,
+                "qOtherSortMode": "OTHER_SORT_DESCENDING",
+                "qTotalMode": "TOTAL_OFF",
+                "qReferencedExpression": {}
+              },
+              "qOtherLabel": {
+                "qv": "Others"
+              },
+              "qTotalLabel": {},
+              "qCalcCond": {},
+              "qAttributeExpressions": [],
+              "qAttributeDimensions": [],
+              "qCalcCondition": {
+                "qCond": {},
+                "qMsg": {}
+              }
+            }
+          ],
+          "qMeasures": [
+            {
+              "qDef": {
+                "qTags": [],
+                "qGrouping": "N",
+                "qDef": "\r\n\n\nif(IndicatorGroup_ID = 'Criteria completeness [1]',\n\n\t(\n\n      if( //both sub indicators are red\n          if( [Sum eCertis indic 1.1] >= 50,'G',if( [Sum eCertis indic 1.1] <= 0 ,'R','Y'))='R'\n          and if( [Sum eCertis indic 1.2] >=50 ,'G',if( [Sum eCertis indic 1.2] <= 0 ,'R','Y'))='R',\n          'R',\n      if( //both sub indicators are green\n          if( [Sum eCertis indic 1.1] >= 50,'G',if( [Sum eCertis indic 1.1] <= 0 ,'R','Y'))='G'\n          and if( [Sum eCertis indic 1.2] >=50 ,'G',if( [Sum eCertis indic 1.2]\t<= 0 ,'R','Y'))='G',\n          'G',        \n      if( //one sub indicator green, one sub indicator yellow\n          if( [Sum eCertis indic 1.1] >= 50,'G',if( [Sum eCertis indic 1.1] <= 0 ,'R','Y'))='G'\n          and if( [Sum eCertis indic 1.2] >=50 ,'G',if( [Sum eCertis indic 1.2]\t<= 0 ,'R','Y'))='Y',\n          'G',\n      if( //one sub indicator yellow, one sub indicator green\n          if( [Sum eCertis indic 1.1] >= 50,'G',if( [Sum eCertis indic 1.1] <= 0 ,'R','Y'))='Y'\n          and if( [Sum eCertis indic 1.2] >=50 ,'G',if( [Sum eCertis indic 1.2] <= 0 ,'R','Y'))='G',\n          'G', 'Y'        \n    \t))))\n        \n     ),\n\nif(IndicatorGroup_ID = 'Evidence completeness [2]',\n\n      if( //both sub indicators are red\n      \t  sum([Indicator 2Certis EG-INS])=0\n          and sum([Indicator 2Certis EG-PT])= 0\n          and sum([Indicator 2Certis EG-CC])= 0\n          \n          \n          and sum([Indicator 2Certis SC-EF]) \t= 0\n          and sum([Indicator 2Certis SC-QA]) \t= 0\n          and sum([Indicator 2Certis SC-ST]) \t= 0\n          and sum([Indicator 2Certis SC-TP]) \t= 0\n          ,   'R',\n          \n      if( //both sub indicators are red\n      \t  sum([Indicator 2Certis EG-INS])\t\t>= 1\n          and sum([Indicator 2Certis EG-PT])\t>= 1\n          and sum([Indicator 2Certis EG-CC])\t>= 1\n          \n          \n          and sum([Indicator 2Certis SC-EF]) \t>= 1\n          and sum([Indicator 2Certis SC-QA]) \t>= 1\n          and sum([Indicator 2Certis SC-ST]) \t>= 1\n          and sum([Indicator 2Certis SC-TP]) \t>= 1\n          ,   'G',\n          \n      if( // one sub indicator is green; one sub indicator is yellow\n      \t  sum([Indicator 2Certis EG-INS])\t\t>= 1\n          and sum([Indicator 2Certis EG-PT])\t>= 1\n          and sum([Indicator 2Certis EG-CC])\t>= 1\n          \n          \n          and (sum([Indicator 2Certis SC-EF]) \t= 0\n          or sum([Indicator 2Certis SC-QA]) \t= 0\n          or sum([Indicator 2Certis SC-ST]) \t= 0\n          or sum([Indicator 2Certis SC-TP]) \t= 0)\n          ,   'G',        \n          \n      if( // one sub indicator is yellow; one sub indicator is green\n      \t  (sum([Indicator 2Certis EG-INS])\t\t= 0\n          or sum([Indicator 2Certis EG-PT])\t\t= 0\n          or sum([Indicator 2Certis EG-CC])\t\t= 0)\n          \n          \n          and sum([Indicator 2Certis SC-EF]) \t>= 1\n          and sum([Indicator 2Certis SC-QA]) \t>= 1\n          and sum([Indicator 2Certis SC-ST]) \t>= 1\n          and sum([Indicator 2Certis SC-TP]) \t>= 1\n          ,   'G',            \n                  \n       'Y'))))      \n     \n))",
+                "qNumFormat": {
+                  "qType": "U",
+                  "qnDec": 10,
+                  "qUseThou": 0
+                },
+                "qAccumulate": 0,
+                "qActiveExpression": 0,
+                "qExpressions": [],
+                "autoSort": true,
+                "cId": "jbfkgJ",
+                "numFormatFromTemplate": true
+              },
+              "qSortBy": {
+                "qSortByNumeric": -1,
+                "qSortByLoadOrder": 1,
+                "qExpression": {}
+              },
+              "qAttributeExpressions": [],
+              "qAttributeDimensions": [],
+              "qCalcCond": {},
+              "qCalcCondition": {
+                "qCond": {},
+                "qMsg": {}
+              },
+              "qTrendLines": [],
+              "qMiniChartDef": {
+                "qSortBy": {
+                  "qExpression": {}
+                },
+                "qOtherTotalSpec": {
+                  "qOtherMode": "OTHER_OFF",
+                  "qOtherCounted": {},
+                  "qOtherLimit": {},
+                  "qOtherLimitMode": "OTHER_GT_LIMIT",
+                  "qForceBadValueKeeping": true,
+                  "qApplyEvenWhenPossiblyWrongResult": true,
+                  "qOtherSortMode": "OTHER_SORT_DESCENDING",
+                  "qTotalMode": "TOTAL_OFF",
+                  "qReferencedExpression": {}
+                },
+                "qMaxNumberPoints": -1,
+                "qAttributeExpressions": []
+              }
+            }
+          ],
+          "qInterColumnSortOrder": [
+            0,
+            1,
+            3,
+            2
+          ],
+          "qInitialDataFetch": [
+            {
+              "qLeft": 0,
+              "qTop": 0,
+              "qWidth": 4,
+              "qHeight": 2500
+            }
+          ],
+          "qReductionMode": "N",
+          "qMode": "S",
+          "qPseudoDimPos": -1,
+          "qNoOfLeftDims": -1,
+          "qMaxStackedCells": 5000,
+          "qCalcCond": {},
+          "qTitle": {},
+          "qCalcCondition": {
+            "qCond": {},
+            "qMsg": {}
+          },
+          "qColumnOrder": [],
+          "qExpansionState": [],
+          "qDynamicScript": [],
+          "qLayoutExclude": {
+            "qHyperCubeDef": {
+              "qDimensions": [],
+              "qMeasures": [],
+              "qInterColumnSortOrder": [],
+              "qInitialDataFetch": [],
+              "qReductionMode": "N",
+              "qMode": "S",
+              "qPseudoDimPos": -1,
+              "qNoOfLeftDims": -1,
+              "qMaxStackedCells": 5000,
+              "qCalcCond": {},
+              "qTitle": {},
+              "qCalcCondition": {
+                "qCond": {},
+                "qMsg": {}
+              },
+              "qColumnOrder": [],
+              "qExpansionState": [],
+              "qDynamicScript": []
+            }
+          }
+        },
+        "red": "#DA5546",
+        "yellow": "#DBC42E",
+        "green": "#71ab7c",
+        "header": "",
+        "total": "",
+        "showTitles": true,
+        "title": "Traffic light chart: Governance Tool - eCertis Overview*",
+        "subtitle": "",
+        "footnote": "",
+        "disableNavMenu": false,
+        "showDetails": false,
+        "showDetailsExpression": false,
+        "visualization": "sms_heatmap_summary",
+        "version": "1.0.0",
+        "extensionMeta": {
+          "translationKey": "",
+          "icon": "table",
+          "iconChar": "puzzle",
+          "isLibraryItem": true,
+          "visible": true,
+          "name": "sms_heatmap_summary",
+          "description": "Table visualization template",
+          "template": "sms_heatmap_summary",
+          "iconPath": "M14.5,9 L13,9 L13,3.3 C13,3.1 12.9,3 12.7,3 L8,3 L8,1.5 C8,0.7 7.3,0 6.5,0 C5.7,0 5,0.7 5,1.5 L5,3 L0.3,3 C0.1,3 0,3.1 0,3.3 L0,9 L1.5,9 C2.3,9 3,9.7 3,10.5 C3,11.3 2.3,12 1.5,12 L0,12 L0,15.7 C0,15.9 0.1,16 0.3,16 L5,16 L5,14.5 C5,13.7 5.7,13 6.5,13 C7.3,13 8,13.7 8,14.5 L8,16 L12.7,16 C12.9,16 13,15.9 13,15.7 L13,12 L14.5,12 C15.3,12 16,11.3 16,10.5 C16,9.7 15.3,9 14.5,9 Z",
+          "isThirdParty": true,
+          "type": "visualization",
+          "version": "1.0.0",
+          "author": "",
+          "homepage": "",
+          "keywords": "qlik-sense, visualization",
+          "license": "",
+          "repository": "",
+          "dependencies": {
+            "qlik-sense": ">=3.0.x"
+          }
+        },
+        "qLayoutExclude": {
+          "disabled": {
+            "qExtendsId": ""
+          },
+          "quarantine": {}
+        }
+      },
+      "qChildren": []
+    }
+  ]
+}

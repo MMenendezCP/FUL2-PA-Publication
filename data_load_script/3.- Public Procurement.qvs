@@ -1,0 +1,409 @@
+///$tab 3.- Public Procurement
+[indicator 1PProcuTraffic]:
+LOAD
+	[x1val] 						AS [ISO_code],
+	[y1val] 						AS [Indicator 1PProcu],
+	[y2val] 						AS [Indicator 1.2PProcu],
+	[y3val] 						AS [Indicator 1.3PProcu],
+	[y4val] 						AS [Indicator 1.4PProcu]
+
+where [x1val] <> 'Year' and [x1val] <> 'UK';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_PRC_SIN_BID_1.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val",
+	"y2val",
+	"y3val",
+	"y4val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+[indicator 2PProcuTraffic]:
+LOAD
+	[x1val] 						AS [ISO_code],
+	[y1val] 						AS [Indicator 2PProcu],
+	[y2val] 						AS [Indicator 2.2PProcu],
+	[y3val] 						AS [Indicator 2.3PProcu],
+	[y4val] 						AS [Indicator 2.4PProcu]
+
+where [x1val] <> 'Year' and [x1val] <> 'UK';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_PRC_NO_CAL_4_BID_2.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val",
+	"y2val",
+	"y3val",
+	"y4val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+
+
+
+[indicator 3PProcuTraffic]:
+/*/---------------------------------------------------------------
+En el original cogen, para el indicador 3 solo y comparando años -> [y2val] AS [PA_PP_PUB_RAT_IND3.2019]
+Aqui usaré y1val que corresponde a 2020
+-----------------------------------------------/*/
+LOAD
+	[x1val] 						AS [ISO_code],
+	[y1val] 						AS [Indicator 3PProcu],
+	[y2val] 						AS [Indicator 3.2PProcu],
+	[y3val] 						AS [Indicator 3.3PProcu],
+    [y4val] 						AS [Indicator 3.4PProcu]
+
+where [x1val] <> 'Year' and [x1val] <> 'UK';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_PRC_PUB_RAT_3.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val",
+	"y2val",
+	"y3val",
+    "y4val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+
+[indicator 4PProcuTraffic]:
+LOAD
+	[x1val] 						AS [ISO_code],
+	[y1val] 						AS [Indicator 4PProcu],
+	[y2val] 						AS [Indicator 4.2PProcu],
+	[y3val] 						AS [Indicator 4.3PProcu],
+	[y4val] 						AS [Indicator 4.4PProcu]
+
+where [x1val] <> 'Year' and [x1val] <> 'UK';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_PRC_COO_PRC_4.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val",
+	"y2val",
+	"y3val",
+	"y4val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+
+
+[indicator 5PProcuTraffic]:
+LOAD
+	[x1val] 						AS [ISO_code],
+	[y1val] 						AS [Indicator 5PProcu],
+	[y2val] 						AS [Indicator 5.2PProcu],
+	[y3val] 						AS [Indicator 5.3PProcu],
+	[y4val] 						AS [Indicator 5.4PProcu]
+
+where [x1val] <> 'Year' and [x1val] <> 'UK';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_PRC_AWA_CRI_5.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val",
+	"y2val",
+	"y3val",
+	"y4val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+
+
+[indicator 6PProcuTraffic]:
+LOAD
+	[x1val] 						AS [ISO_code],
+	[y1val] 						AS [Indicator 6PProcu],
+	[y2val] 						AS [Indicator 6.2PProcu],
+	[y3val] 						AS [Indicator 6.3PProcu],
+	[y4val] 						AS [Indicator 6.4PProcu]
+
+where [x1val] <> 'Year' and [x1val] <> 'UK';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_PRC_DEC_SPE_6.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val",
+	"y2val",
+	"y3val",
+	"y4val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+
+[indicator 7PProcuTraffic]:
+LOAD
+	[x1val] 						AS [ISO_code],
+	[y1val] 						AS [Indicator 7PProcu],
+	[y2val] 						AS [Indicator 7.2PProcu],
+	[y3val] 						AS [Indicator 7.3PProcu],
+    [y4val] 						AS [Indicator 7.4PProcu]
+
+where [x1val] <> 'Year' and [x1val] <> 'UK';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_PRC_SME_CON_7.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val",
+	"y2val",
+	"y3val",
+    "y4val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+
+[indicator 8PProcuTraffic]:
+LOAD
+	[x1val] 						AS [ISO_code],
+	[y1val] 						AS [Indicator 8PProcu],
+	[y2val] 						AS [Indicator 8.2PProcu],
+	[y3val] 						AS [Indicator 8.3PProcu],
+    [y4val] 						AS [Indicator 8.4PProcu]
+
+where [x1val] <> 'Year' and [x1val] <> 'UK';
+
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_PRC_SME_BID_8.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val",
+	"y2val",
+	"y3val",
+    "y4val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+[indicator 9PProcuTraffic]:
+LOAD
+	[x1val] 						AS [ISO_code],
+	[y1val] 						AS [Indicator 9PProcu],
+	[y2val] 						AS [Indicator 9.2PProcu],
+	[y3val] 						AS [Indicator 9.3PProcu],
+	[y4val] 						AS [Indicator 9.4PProcu]
+
+where [x1val] <> 'Year' and [x1val] <> 'UK';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_PRC_DIV_INT_LOT_2.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val",
+	"y2val",
+	"y3val",
+    "y4val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+
+[indicator 10PProcuTraffic]:
+LOAD
+	[x1val] 						AS [ISO_code],
+	[y1val] 						AS [Indicator 10PProcu],
+	[y2val] 						AS [Indicator 10.2PProcu],
+	[y3val] 						AS [Indicator 10.3PProcu],
+	[y4val] 						AS [Indicator 10.4PProcu]
+
+where [x1val] <> 'Year' and [x1val] <> 'UK';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_PRC_MIS_CAL_4_BID_10.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val",
+	"y2val",
+	"y3val",
+	"y4val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+
+[indicator 11PProcuTraffic]:
+LOAD
+	[x1val] 						AS [ISO_code],
+	[y1val] 						AS [Indicator 11PProcu],
+	[y2val] 						AS [Indicator 11.2PProcu],
+	[y3val] 						AS [Indicator 11.3PProcu],
+    [y4val] 						AS [Indicator 11.4PProcu]
+
+where [x1val] <> 'Year' and [x1val] <> 'UK';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_PRC_MIS_SEL_REG_NO_11.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val",
+	"y2val",
+	"y3val",
+    "y4val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+
+[indicator 12PProcuTraffic]:
+LOAD
+	[x1val] 						AS [ISO_code],
+	[y1val] 						AS [Indicator 12PProcu],
+	[y2val] 						AS [Indicator 12.2PProcu],
+	[y3val] 						AS [Indicator 12.3PProcu],
+	[y4val] 						AS [Indicator 12.4PProcu]
+
+where [x1val] <> 'Year' and [x1val] <> 'UK';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_PRC_MIS_BUY_REG_NO_12.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val",
+	"y2val",
+	"y3val",
+	"y4val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+
+
+
+ALLMETRICS_Admin_Market_PProcu:
+// --------------------------------------------------------------
+NoConcatenate
+LOAD
+    [ISO_code],
+    [Reg_Year],
+    [Reg_Rate],
+    [Bus_Year],
+    [Delays_Year1],
+    [Delays_Year2],
+    [Insolventy_Year],
+    [Impact_Major_Obs],
+    [Impact_Minor_Obs],
+    [Impact_Growth],
+// --------------------------------------------------------------
+    [Inv_COU_LastYear],
+    [Inv_COU_Change],
+    [NonInv_PER_LastYear],
+    [NonInv_PER_Change]
+Resident [ALLMETRICS_Admin_Market];
+// --------------------------------------------------------------
+outer join
+LOAD
+	[ISO_code],
+	[Indicator 1PProcu],
+	[Indicator 1.2PProcu],
+	[Indicator 1.3PProcu],
+	[Indicator 1.4PProcu]
+Resident [indicator 1PProcuTraffic];
+left Join
+LOAD
+	[ISO_code],
+	[Indicator 2PProcu],
+	[Indicator 2.2PProcu],
+	[Indicator 2.3PProcu],
+	[Indicator 2.4PProcu]
+Resident [indicator 2PProcuTraffic];
+left Join
+LOAD
+	[ISO_code],
+	[Indicator 3PProcu],
+	[Indicator 3.2PProcu],
+	[Indicator 3.3PProcu],
+   	[Indicator 3.4PProcu]
+Resident [indicator 3PProcuTraffic];
+left Join
+LOAD
+	[ISO_code],
+	[Indicator 4PProcu],
+	[Indicator 4.2PProcu],
+	[Indicator 4.3PProcu],
+	[Indicator 4.4PProcu]
+Resident [indicator 4PProcuTraffic];
+left Join
+LOAD
+	[ISO_code],
+	[Indicator 5PProcu],
+	[Indicator 5.2PProcu],
+	[Indicator 5.3PProcu],
+	[Indicator 5.4PProcu]
+Resident [indicator 5PProcuTraffic];
+left Join
+LOAD
+	[ISO_code],
+	[Indicator 6PProcu],
+	[Indicator 6.2PProcu],
+	[Indicator 6.3PProcu],
+	[Indicator 6.4PProcu]
+Resident [indicator 6PProcuTraffic];
+left Join
+LOAD
+	[ISO_code],
+	[Indicator 7PProcu],
+	[Indicator 7.2PProcu],
+	[Indicator 7.3PProcu],
+    [Indicator 7.4PProcu]
+Resident [indicator 7PProcuTraffic];
+left Join
+LOAD
+	[ISO_code],
+	[Indicator 8PProcu],
+	[Indicator 8.2PProcu],
+	[Indicator 8.3PProcu],
+    [Indicator 8.4PProcu]
+Resident [indicator 8PProcuTraffic];
+left Join
+LOAD
+	[ISO_code],
+	[Indicator 9PProcu],
+	[Indicator 9.2PProcu],
+	[Indicator 9.3PProcu],
+	[Indicator 9.4PProcu]
+Resident [indicator 9PProcuTraffic];
+left join
+LOAD
+	[ISO_code],
+	[Indicator 10PProcu],
+	[Indicator 10.2PProcu],
+	[Indicator 10.3PProcu],
+	[Indicator 10.4PProcu]
+Resident [indicator 10PProcuTraffic];
+left Join
+LOAD
+	[ISO_code],
+	[Indicator 11PProcu],
+	[Indicator 11.2PProcu],
+	[Indicator 11.3PProcu],
+    [Indicator 11.4PProcu]
+Resident [indicator 11PProcuTraffic];
+left join
+LOAD
+	[ISO_code],
+	[Indicator 12PProcu],
+	[Indicator 12.2PProcu],
+	[Indicator 12.3PProcu],
+	[Indicator 12.4PProcu]
+Resident [indicator 12PProcuTraffic];
+
+Drop Table [ALLMETRICS_Admin_Market];
+
+Drop Table [indicator 1PProcuTraffic], [indicator 2PProcuTraffic], [indicator 3PProcuTraffic], [indicator 4PProcuTraffic], [indicator 5PProcuTraffic], [indicator 6PProcuTraffic];
+
+Drop Table [indicator 7PProcuTraffic], [indicator 8PProcuTraffic], [indicator 9PProcuTraffic], [indicator 10PProcuTraffic], [indicator 11PProcuTraffic], [indicator 12PProcuTraffic];

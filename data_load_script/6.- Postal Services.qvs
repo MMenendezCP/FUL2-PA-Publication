@@ -1,0 +1,169 @@
+///$tab 6.- Postal Services
+[Priority letter prices]:
+LOAD
+    [x1val] AS [ISO_code],
+    [x2val] AS [Priority letters Domestic],
+    [x3val] AS [Priority letters intra EU],
+    [x4val] AS [Priority letters Change]
+
+where [x1val] <> '';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_POS_DT_EU_PRI.csv';
+
+SQL SELECT 
+	"x1val",
+	"x2val",
+	"x3val",
+	"x4val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+
+
+
+/*---------------------------------------
+
+DESDE ATTACHED FILES, NO TENGO ESE ARCHIVO NI LO PUEDO DESCARGAR O SUBIR EN OTRA CONEXION¿?
+
+[PA_POS_DT_TIM_DAY]:
+//Crosstable (POS_DT_TIM_Years, Details)
+LOAD
+    if(Country='EU Avg.','EU',Country) as [PA_POS_DT_TIM_DAY_Countries],
+    "2015" as [PA_POS_DT_TIM_DAY_Year-5],
+    "2016" as [PA_POS_DT_TIM_DAY_Year-4],
+    "2017" as [PA_POS_DT_TIM_DAY_Year-3],
+    "2018" as [PA_POS_DT_TIM_DAY_Year-2],
+    "2019" as [PA_POS_DT_TIM_DAY_Year-1],
+    "2020" as [PA_POS_DT_TIM_DAY_lastYear],
+    "Growth rate 2015-2020" as [PA_POS_DT_TIM_DAY_Rate]
+FROM [lib://AttachedFiles/2022.10.07_Postal_Services.xlsx]
+(ooxml, embedded labels, table is [Day+1 performance transit times]);
+
+*/
+
+
+
+ALLMETRICS_Admin_Market_PProcu_Ecertis_Services_Postal:
+NoConcatenate
+LOAD
+    [ISO_code],
+    [Reg_Year],
+    [Reg_Rate],
+    [Bus_Year],
+    [Delays_Year1],
+    [Delays_Year2],
+    [Insolventy_Year],
+    [Impact_Major_Obs],
+    [Impact_Minor_Obs],
+    [Impact_Growth],
+// --------------------------------------------------------------
+    [Inv_COU_LastYear],
+    [Inv_COU_Change],
+    [NonInv_PER_LastYear],
+    [NonInv_PER_Change],
+// --------------------------------------------------------------
+	[Indicator 1PProcu],
+	[Indicator 1.2PProcu],
+	[Indicator 1.3PProcu],
+	[Indicator 1.4PProcu],
+	[Indicator 2PProcu],
+	[Indicator 2.2PProcu],
+	[Indicator 2.3PProcu],
+	[Indicator 2.4PProcu],
+	[Indicator 3PProcu],
+	[Indicator 3.2PProcu],
+	[Indicator 3.3PProcu],
+   	[Indicator 3.4PProcu],
+	[Indicator 4PProcu],
+	[Indicator 4.2PProcu],
+	[Indicator 4.3PProcu],
+	[Indicator 4.4PProcu],
+	[Indicator 5PProcu],
+	[Indicator 5.2PProcu],
+	[Indicator 5.3PProcu],
+	[Indicator 5.4PProcu],
+	[Indicator 6PProcu],
+	[Indicator 6.2PProcu],
+	[Indicator 6.3PProcu],
+	[Indicator 6.4PProcu],
+	[Indicator 7PProcu],
+	[Indicator 7.2PProcu],
+	[Indicator 7.3PProcu],
+    [Indicator 7.4PProcu],
+	[Indicator 8PProcu],
+	[Indicator 8.2PProcu],
+	[Indicator 8.3PProcu],
+    [Indicator 8.4PProcu],
+	[Indicator 9PProcu],
+	[Indicator 9.2PProcu],
+	[Indicator 9.3PProcu],
+	[Indicator 9.4PProcu],
+	[Indicator 10PProcu],
+	[Indicator 10.2PProcu],
+	[Indicator 10.3PProcu],
+	[Indicator 10.4PProcu],
+	[Indicator 11PProcu],
+	[Indicator 11.2PProcu],
+	[Indicator 11.3PProcu],
+    [Indicator 11.4PProcu],
+	[Indicator 12PProcu],
+	[Indicator 12.2PProcu],
+	[Indicator 12.3PProcu],
+	[Indicator 12.4PProcu],
+// --------------------------------------------------------------
+    IndicatorGroup_ID,
+	[Indicator 1Certis EG-CC],
+    [Indicator 1Certis EG-PT],
+    [Indicator 1Certis EG-INS],
+    [Sum eCertis indic 1.1],
+    [Indicator 2Certis EG-CC],
+    [Indicator 2Certis EG-PT],
+    [Indicator 2Certis EG-INS],
+    [Sum eCertis indic 2.1],
+    [Indicator 1Certis SC-EF],
+    [Indicator 1Certis SC-QA],
+    [Indicator 1Certis SC-ST],
+    [Indicator 1Certis SC-TP],
+    [Sum eCertis indic 1.2],
+    [Indicator 2Certis SC-EF],
+    [Indicator 2Certis SC-QA],
+    [Indicator 2Certis SC-ST],
+    [Indicator 2Certis SC-TP],
+    [Sum eCertis indic 2.2],
+    [Evidence types],
+	[eCertis evicences],
+	[Proced evidence],
+    [Percentage of items of evidence available online],
+	[Percentage of items of evidence with samples],
+// --------------------------------------------------------------
+    [Indicator Res Architect Last_Year],
+    [Indicator Res Architect Base_Year],
+    [Indicator Res Accountant Last_Year],
+    [Indicator Res Accountant Base_Year],
+    [Indicator Res Engineer Last_Year],
+    [Indicator Res Engineer Base_Year],
+    [Indicator Res Lawyer Last_Year],
+    [Indicator Res Lawyer Base_Year],
+    [Indicator Res RE_Agent Last_Year],
+    [Indicator Res RE_Agent Base_Year],
+    [Indicator Res Patent_Agent Last_Year],
+    [Indicator Res Patent_Agent Base_Year],
+    [Indicator Res Tourist guide Last_Year],
+    [Indicator Res Tourist guide Base_Year],
+    [Pending Recognition],
+    [Negative Recognition],
+    [Positive Recognition]
+Resident [ALLMETRICS_Admin_Market_PProcu_Ecertis_Services];
+// --------------------------------------------------------------
+outer join
+LOAD
+    [ISO_code],
+    [Priority letters Domestic],
+    [Priority letters intra EU],
+    [Priority letters Change]
+Resident [Priority letter prices];
+
+
+
+Drop Table ALLMETRICS_Admin_Market_PProcu_Ecertis_Services, [Priority letter prices];

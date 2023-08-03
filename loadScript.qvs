@@ -1,0 +1,2345 @@
+///$tab Main
+SET ThousandSep=',';
+SET DecimalSep='.';
+SET MoneyThousandSep=',';
+SET MoneyDecimalSep='.';
+SET MoneyFormat='$#,##0.00;-$#,##0.00';
+SET TimeFormat='h:mm:ss TT';
+SET DateFormat='M/D/YYYY';
+SET TimestampFormat='M/D/YYYY h:mm:ss[.fff] TT';
+SET FirstWeekDay=6;
+SET BrokenWeeks=1;
+SET ReferenceDay=0;
+SET FirstMonthOfYear=1;
+SET CollationLocale='en-US';
+SET CreateSearchIndexOnReload=1;
+SET MonthNames='Jan;Feb;Mar;Apr;May;Jun;Jul;Aug;Sep;Oct;Nov;Dec';
+SET LongMonthNames='January;February;March;April;May;June;July;August;September;October;November;December';
+SET DayNames='Mon;Tue;Wed;Thu;Fri;Sat;Sun';
+SET LongDayNames='Monday;Tuesday;Wednesday;Thursday;Friday;Saturday;Sunday';
+SET NumericalAbbreviation='3:k;6:M;9:G;12:T;15:P;18:E;21:Z;24:Y;-3:m;-6:μ;-9:n;-12:p;-15:f;-18:a;-21:z;-24:y';
+
+
+
+SysActualYear	=	Date(now(),'YYYY');
+SysLastYear		=	Date(AddYears(SysActualYear,-1),'YYYY');
+SysTwoYearsAgo	=	Date(AddYears(SysActualYear,-2),'YYYY');
+SysTreeYearsAgo	=	Date(AddYears(SysActualYear,-3),'YYYY');
+SysFourYearsAgo	=	Date(AddYears(SysActualYear,-4),'YYYY');
+SysFiveYearsAgo	=	Date(AddYears(SysActualYear,-5),'YYYY');
+SysSixYearsAgo	=	Date(AddYears(SysActualYear,-6),'YYYY');
+
+
+text_connection = If(SubStringCount(DocumentTitle(), 'Full') >= 1, 'NEWEDIT_', 'PROD_');
+
+
+
+Indicators_DIM:
+LOAD * Inline [
+Indicator_ID, 		indicator, 						indicator_print,	 PPcruflag, eCertisflag, 	Euresflag
+1, 				'Indicator 1PProcu', 				'Indicator 1', 		1, 			0, 				0
+2, 				'Indicator 2PProcu', 				'Indicator 2', 		1, 			0, 				0
+3, 				'Indicator 3PProcu', 				'Indicator 3', 		1, 			0, 				0
+4, 				'Indicator 4PProcu', 				'Indicator 4', 		1, 			0, 				0
+5, 				'Indicator 5PProcu', 				'Indicator 5', 		1, 			0, 				0
+6, 				'Indicator 6PProcu', 				'Indicator 6', 		1, 			0, 				0
+7, 				'Indicator 7PProcu', 				'Indicator 7', 		1, 			0, 				0
+8, 				'Indicator 8PProcu', 				'Indicator 8', 		1, 			0, 				0
+9, 				'Indicator 9PProcu', 				'Indicator 9', 		1, 			0, 				0
+10, 			'Indicator 10PProcu',				'Indicator 10',		1, 			0, 				0
+11, 			'Indicator 11PProcu',				'Indicator 11',		1, 			0, 				0
+12, 			'Indicator 12PProcu',				'Indicator 12',		1, 			0, 				0
+13, 			'Indicator 1Certis EG-CC',			'EG-CC',			0,			1, 				0
+14,				'Indicator 1Certis EG-PT',			'EG-PT',			0,			1, 				0
+15,				'Indicator 1Certis EG-INS',			'EG-INS',			0,			1, 				0
+16, 			'Indicator 2Certis EG-CC',			'EG-CC',			0,			2, 				0
+17,				'Indicator 2Certis EG-PT',			'EG-PT',			0,			2, 				0
+18,				'Indicator 2Certis EG-INS',			'EG-INS',			0,			2, 				0
+17,				'Indicator 1Certis SC-EF',			'SC-EF',			0,			3, 				0
+18,				'Indicator 1Certis SC-QA',			'SC-QA',			0,			3, 				0
+19, 			'Indicator 1Certis SC-ST',			'SC-ST',			0,			3, 				0
+20,				'Indicator 1Certis SC-TP',			'SC-TP',			0,			3, 				0
+21,				'Indicator 2Certis SC-EF',			'SC-EF',			0,			4, 				0
+22,				'Indicator 2Certis SC-QA',			'SC-QA',			0,			4, 				0
+23, 			'Indicator 2Certis SC-ST',			'SC-ST',			0,			4, 				0
+24,				'Indicator 2Certis SC-TP',			'SC-TP',			0,			4, 				0
+25, 			'Indicator 1Eures', 				'Indicator 1', 		0, 			0,				1
+26, 			'Indicator 2Eures', 				'Indicator 2', 		0, 			0,				1
+27, 			'Indicator 3Eures', 				'Indicator 3', 		0, 			0,				1
+28, 			'Indicator 4Eures', 				'Indicator 4', 		0, 			0,				1
+29, 			'Indicator 5Eures', 				'Indicator 5', 		0, 			0,				1
+];
+
+
+
+
+
+
+///$tab 1.- Administration and burden of regulation
+[Burden of government regulation]:
+LOAD
+    [x1val]							AS [ISO_code],
+    [x2val]							AS [Reg_Year],
+    [y1val]							AS [Reg_Rate]
+    
+where [x1val] <> 'Country';
+    
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_RAA_BOR_BURN_REG.csv';
+
+SQL SELECT 
+	"x1val",
+	"x2val",
+	"y1val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+[Digital public services for businesses]:
+LOAD
+    [x1val]							AS [ISO_code],
+    [y1val]							AS [Bus_Year]
+    
+where [x1val] <> 'Country';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_RAA_BOR_DIG_PUB_SER.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+[Payment delays by public authorities]:
+LOAD
+    [x1val]							AS [ISO_code],
+    [y1val]							AS [Delays_Year1],
+    [y2val]							AS [Delays_Year2]
+    
+where [x1val] <> 'Country';
+    
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_RAA_BOR_DEL_PAY.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val",
+	"y2val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+
+[Insolventy time]:
+
+LOAD
+    [x1val]							AS [ISO_code],
+    [y1val]							AS [Insolventy_Year]
+    
+where [x1val] <> 'Country';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_RAA_BOR_TIME_INSOL.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+[Impact of regulation]:
+
+LOAD
+    [x1val]						AS [ISO_code],
+    [x2val]						AS [Impact_Major_Obs],
+    [x3val]						AS [Impact_Minor_Obs],
+    [x4val]						AS [Impact_Growth]
+    
+where [x1val] <> 'Country';
+    
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_RAA_BOR_L_T_INV.csv';
+
+SQL SELECT 
+	"x1val",
+	"x2val",
+	"x3val",
+	"x4val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+ALLMETRICS_Admin:
+// --------------------------------------------------------------
+NoConcatenate
+LOAD
+    [ISO_code],
+    [Reg_Year],
+    [Reg_Rate]
+Resident [Burden of government regulation];
+left join
+LOAD
+    [ISO_code],
+    [Bus_Year]
+Resident [Digital public services for businesses];
+left join
+LOAD
+    [ISO_code],
+    [Delays_Year1],
+    [Delays_Year2]
+Resident [Payment delays by public authorities];
+left join
+LOAD
+    [ISO_code],
+    [Insolventy_Year]
+Resident [Insolventy time];
+left join
+LOAD
+    [ISO_code],
+    [Impact_Major_Obs],
+    [Impact_Minor_Obs],
+    [Impact_Growth]
+Resident [Impact of regulation];
+
+
+Drop Table [Burden of government regulation], [Digital public services for businesses], [Payment delays by public authorities], [Insolventy time], [Impact of regulation];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+///$tab 2.- Market surveillance
+[Investigations per Member]:
+LOAD
+    [x1val]						AS [ISO_code],
+    [x2val] 					AS [Inv_COU_LastYear],
+    [x3val] 					AS [Inv_COU_Change]
+
+where x1val <> 'Notifying Country';
+    
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_MAR_SUR_INS_PER_COU_New.csv';
+
+SQL SELECT 
+	"x1val",
+	"x2val",
+	"x3val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+
+[Non compliance investigations]:
+LOAD
+    [x1val] 					AS [ISO_code],
+    [x2val] 					AS [NonInv_PER_LastYear],
+    [x3val] 					AS [NonInv_PER_Change]
+    
+where x1val <> 'Notifying Country';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_MAR_SUR_NON_COM_PER_COU_New.csv';
+
+SQL SELECT 
+	"x1val",
+	"x2val",
+	"x3val",
+	"x4val",
+	"x5val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+ALLMETRICS_Admin_Market:
+// --------------------------------------------------------------
+NoConcatenate
+LOAD
+    [ISO_code],
+    [Reg_Year],
+    [Reg_Rate],
+    [Bus_Year],
+    [Delays_Year1],
+    [Delays_Year2],
+    [Insolventy_Year],
+    [Impact_Major_Obs],
+    [Impact_Minor_Obs],
+    [Impact_Growth]
+Resident [ALLMETRICS_Admin];
+// --------------------------------------------------------------
+left Join
+LOAD
+    [ISO_code],
+    [Inv_COU_LastYear],
+    [Inv_COU_Change]
+Resident [Investigations per Member];
+left join
+LOAD
+    [ISO_code],
+    [NonInv_PER_LastYear],
+    [NonInv_PER_Change]
+Resident [Non compliance investigations];
+
+Drop Table [ALLMETRICS_Admin];
+Drop Table [Investigations per Member], [Non compliance investigations];
+
+
+
+
+
+[Highest number of investigations]:
+LOAD
+    [x1val] 					AS [Inv_Sector],
+    [x2val] 					AS [Highest_INV_LastYear],
+    [x3val] 					AS [Highest_NON_COM_LastYear],
+    [x4val] 					AS [Highest_RAN_Change]
+
+where x1val <> 'Row Labels';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_MAR_SUR_12_SEC_YEA_RAN.csv';
+
+SQL SELECT 
+	"x1val",
+	"x2val",
+	"x3val",
+	"x4val",
+	"x5val",
+	"x6val",
+	"x7val",
+	"x8val",
+	"x9val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+///$tab 3.- Public Procurement
+[indicator 1PProcuTraffic]:
+LOAD
+	[x1val] 						AS [ISO_code],
+	[y1val] 						AS [Indicator 1PProcu],
+	[y2val] 						AS [Indicator 1.2PProcu],
+	[y3val] 						AS [Indicator 1.3PProcu],
+	[y4val] 						AS [Indicator 1.4PProcu]
+
+where [x1val] <> 'Year' and [x1val] <> 'UK';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_PRC_SIN_BID_1.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val",
+	"y2val",
+	"y3val",
+	"y4val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+[indicator 2PProcuTraffic]:
+LOAD
+	[x1val] 						AS [ISO_code],
+	[y1val] 						AS [Indicator 2PProcu],
+	[y2val] 						AS [Indicator 2.2PProcu],
+	[y3val] 						AS [Indicator 2.3PProcu],
+	[y4val] 						AS [Indicator 2.4PProcu]
+
+where [x1val] <> 'Year' and [x1val] <> 'UK';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_PRC_NO_CAL_4_BID_2.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val",
+	"y2val",
+	"y3val",
+	"y4val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+
+
+
+[indicator 3PProcuTraffic]:
+/*/---------------------------------------------------------------
+En el original cogen, para el indicador 3 solo y comparando años -> [y2val] AS [PA_PP_PUB_RAT_IND3.2019]
+Aqui usaré y1val que corresponde a 2020
+-----------------------------------------------/*/
+LOAD
+	[x1val] 						AS [ISO_code],
+	[y1val] 						AS [Indicator 3PProcu],
+	[y2val] 						AS [Indicator 3.2PProcu],
+	[y3val] 						AS [Indicator 3.3PProcu],
+    [y4val] 						AS [Indicator 3.4PProcu]
+
+where [x1val] <> 'Year' and [x1val] <> 'UK';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_PRC_PUB_RAT_3.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val",
+	"y2val",
+	"y3val",
+    "y4val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+
+[indicator 4PProcuTraffic]:
+LOAD
+	[x1val] 						AS [ISO_code],
+	[y1val] 						AS [Indicator 4PProcu],
+	[y2val] 						AS [Indicator 4.2PProcu],
+	[y3val] 						AS [Indicator 4.3PProcu],
+	[y4val] 						AS [Indicator 4.4PProcu]
+
+where [x1val] <> 'Year' and [x1val] <> 'UK';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_PRC_COO_PRC_4.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val",
+	"y2val",
+	"y3val",
+	"y4val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+
+
+[indicator 5PProcuTraffic]:
+LOAD
+	[x1val] 						AS [ISO_code],
+	[y1val] 						AS [Indicator 5PProcu],
+	[y2val] 						AS [Indicator 5.2PProcu],
+	[y3val] 						AS [Indicator 5.3PProcu],
+	[y4val] 						AS [Indicator 5.4PProcu]
+
+where [x1val] <> 'Year' and [x1val] <> 'UK';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_PRC_AWA_CRI_5.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val",
+	"y2val",
+	"y3val",
+	"y4val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+
+
+[indicator 6PProcuTraffic]:
+LOAD
+	[x1val] 						AS [ISO_code],
+	[y1val] 						AS [Indicator 6PProcu],
+	[y2val] 						AS [Indicator 6.2PProcu],
+	[y3val] 						AS [Indicator 6.3PProcu],
+	[y4val] 						AS [Indicator 6.4PProcu]
+
+where [x1val] <> 'Year' and [x1val] <> 'UK';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_PRC_DEC_SPE_6.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val",
+	"y2val",
+	"y3val",
+	"y4val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+
+[indicator 7PProcuTraffic]:
+LOAD
+	[x1val] 						AS [ISO_code],
+	[y1val] 						AS [Indicator 7PProcu],
+	[y2val] 						AS [Indicator 7.2PProcu],
+	[y3val] 						AS [Indicator 7.3PProcu],
+    [y4val] 						AS [Indicator 7.4PProcu]
+
+where [x1val] <> 'Year' and [x1val] <> 'UK';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_PRC_SME_CON_7.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val",
+	"y2val",
+	"y3val",
+    "y4val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+
+[indicator 8PProcuTraffic]:
+LOAD
+	[x1val] 						AS [ISO_code],
+	[y1val] 						AS [Indicator 8PProcu],
+	[y2val] 						AS [Indicator 8.2PProcu],
+	[y3val] 						AS [Indicator 8.3PProcu],
+    [y4val] 						AS [Indicator 8.4PProcu]
+
+where [x1val] <> 'Year' and [x1val] <> 'UK';
+
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_PRC_SME_BID_8.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val",
+	"y2val",
+	"y3val",
+    "y4val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+[indicator 9PProcuTraffic]:
+LOAD
+	[x1val] 						AS [ISO_code],
+	[y1val] 						AS [Indicator 9PProcu],
+	[y2val] 						AS [Indicator 9.2PProcu],
+	[y3val] 						AS [Indicator 9.3PProcu],
+	[y4val] 						AS [Indicator 9.4PProcu]
+
+where [x1val] <> 'Year' and [x1val] <> 'UK';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_PRC_DIV_INT_LOT_2.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val",
+	"y2val",
+	"y3val",
+    "y4val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+
+[indicator 10PProcuTraffic]:
+LOAD
+	[x1val] 						AS [ISO_code],
+	[y1val] 						AS [Indicator 10PProcu],
+	[y2val] 						AS [Indicator 10.2PProcu],
+	[y3val] 						AS [Indicator 10.3PProcu],
+	[y4val] 						AS [Indicator 10.4PProcu]
+
+where [x1val] <> 'Year' and [x1val] <> 'UK';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_PRC_MIS_CAL_4_BID_10.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val",
+	"y2val",
+	"y3val",
+	"y4val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+
+[indicator 11PProcuTraffic]:
+LOAD
+	[x1val] 						AS [ISO_code],
+	[y1val] 						AS [Indicator 11PProcu],
+	[y2val] 						AS [Indicator 11.2PProcu],
+	[y3val] 						AS [Indicator 11.3PProcu],
+    [y4val] 						AS [Indicator 11.4PProcu]
+
+where [x1val] <> 'Year' and [x1val] <> 'UK';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_PRC_MIS_SEL_REG_NO_11.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val",
+	"y2val",
+	"y3val",
+    "y4val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+
+[indicator 12PProcuTraffic]:
+LOAD
+	[x1val] 						AS [ISO_code],
+	[y1val] 						AS [Indicator 12PProcu],
+	[y2val] 						AS [Indicator 12.2PProcu],
+	[y3val] 						AS [Indicator 12.3PProcu],
+	[y4val] 						AS [Indicator 12.4PProcu]
+
+where [x1val] <> 'Year' and [x1val] <> 'UK';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_PRC_MIS_BUY_REG_NO_12.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val",
+	"y2val",
+	"y3val",
+	"y4val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+
+
+
+ALLMETRICS_Admin_Market_PProcu:
+// --------------------------------------------------------------
+NoConcatenate
+LOAD
+    [ISO_code],
+    [Reg_Year],
+    [Reg_Rate],
+    [Bus_Year],
+    [Delays_Year1],
+    [Delays_Year2],
+    [Insolventy_Year],
+    [Impact_Major_Obs],
+    [Impact_Minor_Obs],
+    [Impact_Growth],
+// --------------------------------------------------------------
+    [Inv_COU_LastYear],
+    [Inv_COU_Change],
+    [NonInv_PER_LastYear],
+    [NonInv_PER_Change]
+Resident [ALLMETRICS_Admin_Market];
+// --------------------------------------------------------------
+outer join
+LOAD
+	[ISO_code],
+	[Indicator 1PProcu],
+	[Indicator 1.2PProcu],
+	[Indicator 1.3PProcu],
+	[Indicator 1.4PProcu]
+Resident [indicator 1PProcuTraffic];
+left Join
+LOAD
+	[ISO_code],
+	[Indicator 2PProcu],
+	[Indicator 2.2PProcu],
+	[Indicator 2.3PProcu],
+	[Indicator 2.4PProcu]
+Resident [indicator 2PProcuTraffic];
+left Join
+LOAD
+	[ISO_code],
+	[Indicator 3PProcu],
+	[Indicator 3.2PProcu],
+	[Indicator 3.3PProcu],
+   	[Indicator 3.4PProcu]
+Resident [indicator 3PProcuTraffic];
+left Join
+LOAD
+	[ISO_code],
+	[Indicator 4PProcu],
+	[Indicator 4.2PProcu],
+	[Indicator 4.3PProcu],
+	[Indicator 4.4PProcu]
+Resident [indicator 4PProcuTraffic];
+left Join
+LOAD
+	[ISO_code],
+	[Indicator 5PProcu],
+	[Indicator 5.2PProcu],
+	[Indicator 5.3PProcu],
+	[Indicator 5.4PProcu]
+Resident [indicator 5PProcuTraffic];
+left Join
+LOAD
+	[ISO_code],
+	[Indicator 6PProcu],
+	[Indicator 6.2PProcu],
+	[Indicator 6.3PProcu],
+	[Indicator 6.4PProcu]
+Resident [indicator 6PProcuTraffic];
+left Join
+LOAD
+	[ISO_code],
+	[Indicator 7PProcu],
+	[Indicator 7.2PProcu],
+	[Indicator 7.3PProcu],
+    [Indicator 7.4PProcu]
+Resident [indicator 7PProcuTraffic];
+left Join
+LOAD
+	[ISO_code],
+	[Indicator 8PProcu],
+	[Indicator 8.2PProcu],
+	[Indicator 8.3PProcu],
+    [Indicator 8.4PProcu]
+Resident [indicator 8PProcuTraffic];
+left Join
+LOAD
+	[ISO_code],
+	[Indicator 9PProcu],
+	[Indicator 9.2PProcu],
+	[Indicator 9.3PProcu],
+	[Indicator 9.4PProcu]
+Resident [indicator 9PProcuTraffic];
+left join
+LOAD
+	[ISO_code],
+	[Indicator 10PProcu],
+	[Indicator 10.2PProcu],
+	[Indicator 10.3PProcu],
+	[Indicator 10.4PProcu]
+Resident [indicator 10PProcuTraffic];
+left Join
+LOAD
+	[ISO_code],
+	[Indicator 11PProcu],
+	[Indicator 11.2PProcu],
+	[Indicator 11.3PProcu],
+    [Indicator 11.4PProcu]
+Resident [indicator 11PProcuTraffic];
+left join
+LOAD
+	[ISO_code],
+	[Indicator 12PProcu],
+	[Indicator 12.2PProcu],
+	[Indicator 12.3PProcu],
+	[Indicator 12.4PProcu]
+Resident [indicator 12PProcuTraffic];
+
+Drop Table [ALLMETRICS_Admin_Market];
+
+Drop Table [indicator 1PProcuTraffic], [indicator 2PProcuTraffic], [indicator 3PProcuTraffic], [indicator 4PProcuTraffic], [indicator 5PProcuTraffic], [indicator 6PProcuTraffic];
+
+Drop Table [indicator 7PProcuTraffic], [indicator 8PProcuTraffic], [indicator 9PProcuTraffic], [indicator 10PProcuTraffic], [indicator 11PProcuTraffic], [indicator 12PProcuTraffic];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+///$tab 4.- eCertis
+[indicator 1Certis EG-CC]:
+LOAD
+	[x1val] 							AS [eCertis],
+	[y1val] 							AS [Indicator 1Certis EG-CC]
+    
+where [x1val] <> 'Edition' and [x1val] <> 'UK' and [x1val] <> '';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_ECE_EG_CC_1.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+
+[indicator 1Certis EG-PT]:
+LOAD
+	[x1val] 							AS [eCertis],
+	[y1val] 							AS [Indicator 1Certis EG-PT]
+
+where [x1val] <> 'Edition' and [x1val] <> 'UK' and [x1val] <> '';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_ECE_EG_PT_1.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+[indicator 1Certis EG-INS]:
+LOAD
+	[x1val] 							AS [eCertis],
+	[y1val] 							AS [Indicator 1Certis EG-INS]
+
+where [x1val] <> 'Edition' and [x1val] <> 'UK' and [x1val] <> '';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_ECE_EG_INS_1.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+[indicator 2Certis EG-CC]:
+LOAD
+	[x1val] 							AS [eCertis],
+	[y1val] 							AS [Indicator 2Certis EG-CC]
+
+where [x1val] <> 'Edition' and [x1val] <> 'UK' and [x1val] <> '';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_ECE_EG_CC_2.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+[indicator 2Certis EG-PT]:
+LOAD
+	[x1val] 							AS [eCertis],
+	[y1val] 							AS [Indicator 2Certis EG-PT]
+
+where [x1val] <> 'Edition' and [x1val] <> 'UK' and [x1val] <> '';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_ECE_EG_PT_2.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+[indicator 2Certis EG-INS]:
+LOAD
+	[x1val] 							AS [eCertis],
+	[y1val] 							AS [Indicator 2Certis EG-INS]
+
+where [x1val] <> 'Edition' and [x1val] <> 'UK' and [x1val] <> '';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_ECE_EG_INS_2.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+[indicator 1Certis SC-EF]:
+LOAD
+	[x1val] 							AS [eCertis],
+	[y1val] 							AS [Indicator 1Certis SC-EF]
+    
+where [x1val] <> 'Edition' and [x1val] <> 'UK' and [x1val] <> '';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_ECE_SC_EF_1.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+[indicator 1Certis SC-QA]:
+LOAD
+	[x1val] 							AS [eCertis],
+	[y1val] 							AS [Indicator 1Certis SC-QA]
+
+where [x1val] <> 'Edition' and [x1val] <> 'UK' and [x1val] <> '';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_ECE_SC_QA_1.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+[indicator 1Certis SC-ST]:
+LOAD
+	[x1val] 							AS [eCertis],
+	[y1val] 							AS [Indicator 1Certis SC-ST]
+
+where [x1val] <> 'Edition' and [x1val] <> 'UK' and [x1val] <> '';
+    
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_ECE_SC_ST_1.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+[indicator 1Certis SC-TP]:
+LOAD
+	[x1val] 							AS [eCertis],
+	[y1val] 							AS [Indicator 1Certis SC-TP]
+
+where [x1val] <> 'Edition' and [x1val] <> 'UK' and [x1val] <> '';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_ECE_SC_TP_1.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+[indicator 2Certis SC-EF]:
+LOAD
+	[x1val] 							AS [eCertis],
+	[y1val] 							AS [Indicator 2Certis SC-EF]
+
+where [x1val] <> 'Edition' and [x1val] <> 'UK' and [x1val] <> '';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_ECE_SC_EF_2.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+[indicator 2Certis SC-QA]:
+LOAD
+	[x1val] 							AS [eCertis],
+	[y1val] 							AS [Indicator 2Certis SC-QA]
+
+where [x1val] <> 'Edition' and [x1val] <> 'UK' and [x1val] <> '';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_ECE_SC_QA_2.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+[indicator 2Certis SC-ST]:
+LOAD
+	[x1val] 							AS [eCertis],
+	[y1val] 							AS [Indicator 2Certis SC-ST]
+
+where [x1val] <> 'Edition' and [x1val] <> 'UK' and [x1val] <> '';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_ECE_SC_ST_2.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+[indicator 2Certis SC-TP]:
+LOAD
+	[x1val] 							AS [eCertis],
+	[y1val] 							AS [Indicator 2Certis SC-TP]
+
+where [x1val] <> 'Edition' and [x1val] <> 'UK' and [x1val] <> '';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_ECE_SG_TP_2.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+[Evidence types]:
+LOAD
+	[x2val] 							AS [eCertis],
+    [x1val] 							AS [Evidence types],
+	[y1val] 							AS [eCertis evicences]
+
+where [x1val] <> 'Type' and [x2val] <> 'UK';
+    
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_ECE_EVI_TYP.csv';
+
+SQL SELECT 
+	"x2val",
+	"x1val",
+	"y1val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+[proced evidence]:
+LOAD
+	[x1val] 							AS [eCertis],
+	[y1val] 							AS [Proced evidence]
+
+where [x1val] <> 'Country' and [x1val] <> 'UK' and [x1val] <> '';
+    
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_ECE_PRI_EVI.csv';
+
+
+SQL SELECT 
+	"x1val",
+	"y1val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+[percentage of items of evidence available online]:
+LOAD
+	[x1val] 							AS [eCertis],
+    [y1val] 							AS [Percentage of items of evidence available online]
+
+where [x1val] <> 'Country' and [x1val] <> 'UK' and [x1val] <> '';
+    
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_ECE_PER_ITE_EVI.csv';
+
+
+SQL SELECT 
+	"x1val",
+	"y1val" 
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+[percentage of items of evidence with samples]:
+LOAD
+	[x1val] 							AS [eCertis],
+	[y1val] 							AS [Percentage of items of evidence with samples]
+
+where [x1val] <> 'Country' and [x1val] <> 'UK' and [x1val] <> '';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_ECE_ITE_EVI_SAM.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+
+ALLMETRICS_Ecertis_aux:
+// --------------------------------------------------------------
+NoConcatenate
+LOAD
+	[eCertis],
+    'Criteria completeness [1]' 		AS IndicatorGroup_ID,
+	[Indicator 1Certis EG-CC]
+Resident [indicator 1Certis EG-CC];
+outer Join
+LOAD
+	[eCertis],
+    'Criteria completeness [1]' 		AS IndicatorGroup_ID,
+	[Indicator 1Certis EG-PT]
+Resident [indicator 1Certis EG-PT];
+outer Join
+LOAD
+	[eCertis],
+    'Criteria completeness [1]' 		AS IndicatorGroup_ID,
+	[Indicator 1Certis EG-INS]
+Resident [indicator 1Certis EG-INS];
+outer Join
+LOAD
+	[eCertis],
+    'Evidence completeness [2]'			AS IndicatorGroup_ID,
+	[Indicator 2Certis EG-CC]
+    
+Resident [indicator 2Certis EG-CC];
+left Join
+LOAD
+	[eCertis],
+    'Evidence completeness [2]'			AS IndicatorGroup_ID,
+	[Indicator 2Certis EG-PT]
+    
+Resident [indicator 2Certis EG-PT];
+left Join
+LOAD
+	[eCertis],
+    'Evidence completeness [2]'			AS IndicatorGroup_ID,
+	[Indicator 2Certis EG-INS]
+    
+Resident [indicator 2Certis EG-INS];
+left Join
+LOAD
+	[eCertis],
+    'Criteria completeness [1]' 		AS IndicatorGroup_ID,
+	[Indicator 1Certis SC-EF]
+    
+Resident [indicator 1Certis SC-EF];
+left Join
+LOAD
+	[eCertis],
+    'Criteria completeness [1]' 		AS IndicatorGroup_ID,
+	[Indicator 1Certis SC-QA]
+    
+Resident [indicator 1Certis SC-QA];
+left Join
+LOAD
+	[eCertis],
+    'Criteria completeness [1]' 		AS IndicatorGroup_ID,
+	[Indicator 1Certis SC-ST]
+    
+Resident [indicator 1Certis SC-ST];
+left Join
+LOAD
+	[eCertis],
+    'Criteria completeness [1]' 		AS IndicatorGroup_ID,
+	[Indicator 1Certis SC-TP]
+    
+Resident [indicator 1Certis SC-TP];
+left Join
+LOAD
+	[eCertis],
+    'Evidence completeness [2]'			AS IndicatorGroup_ID,
+	[Indicator 2Certis SC-EF]
+    
+Resident [indicator 2Certis SC-EF];
+left join
+LOAD
+	[eCertis],
+    'Evidence completeness [2]'			AS IndicatorGroup_ID,
+	[Indicator 2Certis SC-QA]
+    
+Resident [indicator 2Certis SC-QA];
+outer Join
+LOAD
+	[eCertis],
+    'Evidence completeness [2]'			AS IndicatorGroup_ID,
+	[Indicator 2Certis SC-ST]
+    
+Resident [indicator 2Certis SC-ST];
+left Join
+LOAD
+	[eCertis],
+    'Evidence completeness [2]'			AS IndicatorGroup_ID,
+	[Indicator 2Certis SC-TP]
+    
+Resident [indicator 2Certis SC-TP];
+
+
+
+
+
+Drop Table [indicator 1Certis EG-CC], [indicator 1Certis EG-PT], [indicator 1Certis EG-INS], [indicator 2Certis EG-CC], [indicator 2Certis EG-PT], [indicator 2Certis EG-INS];
+
+Drop Table [indicator 1Certis SC-EF], [indicator 1Certis SC-QA], [indicator 1Certis SC-ST], [indicator 1Certis SC-TP], [indicator 2Certis SC-EF], [indicator 2Certis SC-QA], [indicator 2Certis SC-ST], [indicator 2Certis SC-TP];
+
+
+
+
+
+ALLMETRICS_Admin_Market_PProcu_Ecertis:
+// --------------------------------------------------------------
+NoConcatenate
+LOAD
+    [ISO_code],
+    [Reg_Year],
+    [Reg_Rate],
+    [Bus_Year],
+    [Delays_Year1],
+    [Delays_Year2],
+    [Insolventy_Year],
+    [Impact_Major_Obs],
+    [Impact_Minor_Obs],
+    [Impact_Growth],
+// --------------------------------------------------------------
+    [Inv_COU_LastYear],
+    [Inv_COU_Change],
+    [NonInv_PER_LastYear],
+    [NonInv_PER_Change],
+// --------------------------------------------------------------
+	[Indicator 1PProcu],
+	[Indicator 1.2PProcu],
+	[Indicator 1.3PProcu],
+	[Indicator 1.4PProcu],
+	[Indicator 2PProcu],
+	[Indicator 2.2PProcu],
+	[Indicator 2.3PProcu],
+	[Indicator 2.4PProcu],
+	[Indicator 3PProcu],
+	[Indicator 3.2PProcu],
+	[Indicator 3.3PProcu],
+   	[Indicator 3.4PProcu],
+	[Indicator 4PProcu],
+	[Indicator 4.2PProcu],
+	[Indicator 4.3PProcu],
+	[Indicator 4.4PProcu],
+	[Indicator 5PProcu],
+	[Indicator 5.2PProcu],
+	[Indicator 5.3PProcu],
+	[Indicator 5.4PProcu],
+	[Indicator 6PProcu],
+	[Indicator 6.2PProcu],
+	[Indicator 6.3PProcu],
+	[Indicator 6.4PProcu],
+	[Indicator 7PProcu],
+	[Indicator 7.2PProcu],
+	[Indicator 7.3PProcu],
+    [Indicator 7.4PProcu],
+	[Indicator 8PProcu],
+	[Indicator 8.2PProcu],
+	[Indicator 8.3PProcu],
+    [Indicator 8.4PProcu],
+	[Indicator 9PProcu],
+	[Indicator 9.2PProcu],
+	[Indicator 9.3PProcu],
+	[Indicator 9.4PProcu],
+	[Indicator 10PProcu],
+	[Indicator 10.2PProcu],
+	[Indicator 10.3PProcu],
+	[Indicator 10.4PProcu],
+	[Indicator 11PProcu],
+	[Indicator 11.2PProcu],
+	[Indicator 11.3PProcu],
+    [Indicator 11.4PProcu],
+	[Indicator 12PProcu],
+	[Indicator 12.2PProcu],
+	[Indicator 12.3PProcu],
+	[Indicator 12.4PProcu]
+Resident [ALLMETRICS_Admin_Market_PProcu];
+// --------------------------------------------------------------
+left Join
+LOAD
+	[eCertis]																															AS [ISO_code],
+    IndicatorGroup_ID,
+	[Indicator 1Certis EG-CC],
+    [Indicator 1Certis EG-PT],
+    [Indicator 1Certis EG-INS],
+    round(([Indicator 1Certis EG-CC] + [Indicator 1Certis EG-PT] + [Indicator 1Certis EG-INS])/3) 										AS [Sum eCertis indic 1.1],
+    [Indicator 2Certis EG-CC],
+    [Indicator 2Certis EG-PT],
+    [Indicator 2Certis EG-INS],
+    round(([Indicator 2Certis EG-CC] + [Indicator 2Certis EG-PT] + [Indicator 2Certis EG-INS])) 										AS [Sum eCertis indic 2.1],
+    [Indicator 1Certis SC-EF],
+    [Indicator 1Certis SC-QA],
+    [Indicator 1Certis SC-ST],
+    [Indicator 1Certis SC-TP],
+    round(([Indicator 1Certis SC-EF] + [Indicator 1Certis SC-QA] + [Indicator 1Certis SC-ST] + [Indicator 1Certis SC-TP])/4)			AS [Sum eCertis indic 1.2],
+    [Indicator 2Certis SC-EF],
+    [Indicator 2Certis SC-QA],
+    [Indicator 2Certis SC-ST],
+    [Indicator 2Certis SC-TP],
+    round(([Indicator 2Certis SC-EF] + [Indicator 2Certis SC-QA] + [Indicator 2Certis SC-ST] + [Indicator 2Certis SC-TP]))				AS [Sum eCertis indic 2.2]
+Resident ALLMETRICS_Ecertis_aux;
+left Join
+LOAD
+	[eCertis]																															AS [ISO_code],
+    [Evidence types],
+	[eCertis evicences]
+Resident [Evidence types];
+left Join
+LOAD	
+	[eCertis]																															AS [ISO_code],
+	[Proced evidence]
+Resident [proced evidence];    
+left Join
+LOAD
+	[eCertis]																															AS [ISO_code],
+    [Percentage of items of evidence available online]
+Resident [percentage of items of evidence available online];
+left Join
+LOAD
+	[eCertis]																															AS [ISO_code],
+	[Percentage of items of evidence with samples]
+Resident [percentage of items of evidence with samples];
+
+
+Drop Table ALLMETRICS_Ecertis_aux, ALLMETRICS_Admin_Market_PProcu, [Evidence types], [proced evidence], [percentage of items of evidence available online], [percentage of items of evidence with samples];
+
+///$tab 5.- Access to Services
+[Restrictiveness indicator - Architect]:
+LOAD
+    [x1val] 						AS [ISO_code],
+    [y1val] 						AS [Indicator Res Architect Last_Year],
+    [y2val] 						AS [Indicator Res Architect Base_Year]
+    
+where [x1val]<>'';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_PS_RES_ARCH.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val",
+	"y2val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+
+[Restrictiveness indicator - Accountant]:
+LOAD
+    [x1val] 						AS [ISO_code],
+    [y1val] 						AS [Indicator Res Accountant Last_Year],
+    [y2val] 						AS [Indicator Res Accountant Base_Year]
+
+where [x1val]<>'';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_PS_RES_ACC.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val",
+	"y2val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+
+[Restrictiveness indicator - Civil engineer]:
+LOAD
+    [x1val] 						AS [ISO_code],
+    [y1val] 						AS [Indicator Res Engineer Last_Year],
+    [y2val] 						AS [Indicator Res Engineer Base_Year]
+    
+where [x1val]<>'';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_PS_RES_CIV_ENG.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val",
+	"y2val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+[Restrictiveness indicator - Lawyer]:
+LOAD
+    [x1val] 						AS [ISO_code],
+    [y1val] 						AS [Indicator Res Lawyer Last_Year],
+    [y2val] 						AS [Indicator Res Lawyer Base_Year]
+    
+where [x1val]<>'';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_PS_RES_LAW.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val",
+	"y2val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+[Restrictiveness indicator - Real Estate Agent]:
+LOAD
+    [x1val] 						AS [ISO_code],
+    [y1val] 						AS [Indicator Res RE_Agent Last_Year],
+    [y2val] 						AS [Indicator Res RE_Agent Base_Year] 
+    
+where [x1val]<>'';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_PS_RES_REAL_EST_AG.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val",
+	"y2val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+[Restrictiveness indicator - Patent Agent]:
+LOAD
+    [x1val] 						AS [ISO_code],
+    [y1val] 						AS [Indicator Res Patent_Agent Last_Year],
+    [y2val] 						AS [Indicator Res Patent_Agent Base_Year]
+    
+where [x1val]<>''; 
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_PS_RES_PAT_AG.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val",
+	"y2val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+[Restrictiveness indicator - Tourist guide]:
+LOAD
+    [x1val] 						AS [ISO_code],
+    [y1val] 						AS [Indicator Res Tourist guide Last_Year],
+    [y2val] 						AS [Indicator Res Tourist guide Base_Year]
+    
+where [x1val]<>'';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_PS_RES_TOU_GUI.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val",
+	"y2val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+[Positive recognition rates]:
+LOAD
+    [x1val] 						AS [Profession],
+    [y1val] 						AS [Positive recognition rates]
+    
+where [x1val]<>'';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_PS_RES_RECO_PRO.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+[Recognition of qualifications]:
+NoConcatenate
+LOAD
+    [x1val] 						AS [ISO_code],
+    [x2val] 						AS [Pending Recognition],
+    [x3val] 						AS [Negative Recognition],
+    [x4val] 						AS [Positive Recognition]
+    
+where [x1val]<>'';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_PS_RES_RECO_DEC.csv';
+
+SQL SELECT 
+	"x1val",
+	"x2val",
+	"x3val",
+	"x4val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+
+ALLMETRICS_Admin_Market_PProcu_Ecertis_Services:
+// --------------------------------------------------------------
+NoConcatenate
+LOAD
+    [ISO_code],
+    [Reg_Year],
+    [Reg_Rate],
+    [Bus_Year],
+    [Delays_Year1],
+    [Delays_Year2],
+    [Insolventy_Year],
+    [Impact_Major_Obs],
+    [Impact_Minor_Obs],
+    [Impact_Growth],
+// --------------------------------------------------------------
+    [Inv_COU_LastYear],
+    [Inv_COU_Change],
+    [NonInv_PER_LastYear],
+    [NonInv_PER_Change],
+// --------------------------------------------------------------
+	[Indicator 1PProcu],
+	[Indicator 1.2PProcu],
+	[Indicator 1.3PProcu],
+	[Indicator 1.4PProcu],
+	[Indicator 2PProcu],
+	[Indicator 2.2PProcu],
+	[Indicator 2.3PProcu],
+	[Indicator 2.4PProcu],
+	[Indicator 3PProcu],
+	[Indicator 3.2PProcu],
+	[Indicator 3.3PProcu],
+   	[Indicator 3.4PProcu],
+	[Indicator 4PProcu],
+	[Indicator 4.2PProcu],
+	[Indicator 4.3PProcu],
+	[Indicator 4.4PProcu],
+	[Indicator 5PProcu],
+	[Indicator 5.2PProcu],
+	[Indicator 5.3PProcu],
+	[Indicator 5.4PProcu],
+	[Indicator 6PProcu],
+	[Indicator 6.2PProcu],
+	[Indicator 6.3PProcu],
+	[Indicator 6.4PProcu],
+	[Indicator 7PProcu],
+	[Indicator 7.2PProcu],
+	[Indicator 7.3PProcu],
+    [Indicator 7.4PProcu],
+	[Indicator 8PProcu],
+	[Indicator 8.2PProcu],
+	[Indicator 8.3PProcu],
+    [Indicator 8.4PProcu],
+	[Indicator 9PProcu],
+	[Indicator 9.2PProcu],
+	[Indicator 9.3PProcu],
+	[Indicator 9.4PProcu],
+	[Indicator 10PProcu],
+	[Indicator 10.2PProcu],
+	[Indicator 10.3PProcu],
+	[Indicator 10.4PProcu],
+	[Indicator 11PProcu],
+	[Indicator 11.2PProcu],
+	[Indicator 11.3PProcu],
+    [Indicator 11.4PProcu],
+	[Indicator 12PProcu],
+	[Indicator 12.2PProcu],
+	[Indicator 12.3PProcu],
+	[Indicator 12.4PProcu],
+// --------------------------------------------------------------
+    IndicatorGroup_ID,
+	[Indicator 1Certis EG-CC],
+    [Indicator 1Certis EG-PT],
+    [Indicator 1Certis EG-INS],
+    [Sum eCertis indic 1.1],
+    [Indicator 2Certis EG-CC],
+    [Indicator 2Certis EG-PT],
+    [Indicator 2Certis EG-INS],
+    [Sum eCertis indic 2.1],
+    [Indicator 1Certis SC-EF],
+    [Indicator 1Certis SC-QA],
+    [Indicator 1Certis SC-ST],
+    [Indicator 1Certis SC-TP],
+    [Sum eCertis indic 1.2],
+    [Indicator 2Certis SC-EF],
+    [Indicator 2Certis SC-QA],
+    [Indicator 2Certis SC-ST],
+    [Indicator 2Certis SC-TP],
+    [Sum eCertis indic 2.2],
+    [Evidence types],
+	[eCertis evicences],
+	[Proced evidence],
+    [Percentage of items of evidence available online],
+	[Percentage of items of evidence with samples]
+Resident [ALLMETRICS_Admin_Market_PProcu_Ecertis];
+// --------------------------------------------------------------
+left Join
+LOAD
+    [ISO_code],
+    [Indicator Res Architect Last_Year],
+    [Indicator Res Architect Base_Year]
+Resident [Restrictiveness indicator - Architect];
+left Join
+LOAD
+    [ISO_code],
+    [Indicator Res Accountant Last_Year],
+    [Indicator Res Accountant Base_Year]
+Resident [Restrictiveness indicator - Accountant];
+left Join
+LOAD
+    [ISO_code],
+    [Indicator Res Engineer Last_Year],
+    [Indicator Res Engineer Base_Year]
+Resident [Restrictiveness indicator - Civil engineer];
+left Join
+LOAD
+    [ISO_code],
+    [Indicator Res Lawyer Last_Year],
+    [Indicator Res Lawyer Base_Year]
+Resident [Restrictiveness indicator - Lawyer];
+left Join
+LOAD
+    [ISO_code],
+    [Indicator Res RE_Agent Last_Year],
+    [Indicator Res RE_Agent Base_Year]
+Resident [Restrictiveness indicator - Real Estate Agent];
+left Join
+LOAD
+    [ISO_code],
+    [Indicator Res Patent_Agent Last_Year],
+    [Indicator Res Patent_Agent Base_Year]
+Resident [Restrictiveness indicator - Patent Agent];
+left Join
+LOAD
+    [ISO_code],
+    [Indicator Res Tourist guide Last_Year],
+    [Indicator Res Tourist guide Base_Year]
+Resident [Restrictiveness indicator - Tourist guide];
+left Join
+LOAD
+    [ISO_code],
+    [Pending Recognition],
+    [Negative Recognition],
+    [Positive Recognition]
+Resident [Recognition of qualifications];
+
+
+Drop Table [Restrictiveness indicator - Architect], [Restrictiveness indicator - Accountant], [Restrictiveness indicator - Civil engineer], [Restrictiveness indicator - Lawyer], [Restrictiveness indicator - Real Estate Agent];
+
+Drop Table [Restrictiveness indicator - Patent Agent], [Restrictiveness indicator - Tourist guide], [Recognition of qualifications];
+
+Drop Table [ALLMETRICS_Admin_Market_PProcu_Ecertis];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+///$tab 6.- Postal Services
+[Priority letter prices]:
+LOAD
+    [x1val] AS [ISO_code],
+    [x2val] AS [Priority letters Domestic],
+    [x3val] AS [Priority letters intra EU],
+    [x4val] AS [Priority letters Change]
+
+where [x1val] <> '';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_POS_DT_EU_PRI.csv';
+
+SQL SELECT 
+	"x1val",
+	"x2val",
+	"x3val",
+	"x4val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+
+
+
+/*---------------------------------------
+
+DESDE ATTACHED FILES, NO TENGO ESE ARCHIVO NI LO PUEDO DESCARGAR O SUBIR EN OTRA CONEXION¿?
+
+[PA_POS_DT_TIM_DAY]:
+//Crosstable (POS_DT_TIM_Years, Details)
+LOAD
+    if(Country='EU Avg.','EU',Country) as [PA_POS_DT_TIM_DAY_Countries],
+    "2015" as [PA_POS_DT_TIM_DAY_Year-5],
+    "2016" as [PA_POS_DT_TIM_DAY_Year-4],
+    "2017" as [PA_POS_DT_TIM_DAY_Year-3],
+    "2018" as [PA_POS_DT_TIM_DAY_Year-2],
+    "2019" as [PA_POS_DT_TIM_DAY_Year-1],
+    "2020" as [PA_POS_DT_TIM_DAY_lastYear],
+    "Growth rate 2015-2020" as [PA_POS_DT_TIM_DAY_Rate]
+FROM [lib://AttachedFiles/2022.10.07_Postal_Services.xlsx]
+(ooxml, embedded labels, table is [Day+1 performance transit times]);
+
+*/
+
+
+
+ALLMETRICS_Admin_Market_PProcu_Ecertis_Services_Postal:
+NoConcatenate
+LOAD
+    [ISO_code],
+    [Reg_Year],
+    [Reg_Rate],
+    [Bus_Year],
+    [Delays_Year1],
+    [Delays_Year2],
+    [Insolventy_Year],
+    [Impact_Major_Obs],
+    [Impact_Minor_Obs],
+    [Impact_Growth],
+// --------------------------------------------------------------
+    [Inv_COU_LastYear],
+    [Inv_COU_Change],
+    [NonInv_PER_LastYear],
+    [NonInv_PER_Change],
+// --------------------------------------------------------------
+	[Indicator 1PProcu],
+	[Indicator 1.2PProcu],
+	[Indicator 1.3PProcu],
+	[Indicator 1.4PProcu],
+	[Indicator 2PProcu],
+	[Indicator 2.2PProcu],
+	[Indicator 2.3PProcu],
+	[Indicator 2.4PProcu],
+	[Indicator 3PProcu],
+	[Indicator 3.2PProcu],
+	[Indicator 3.3PProcu],
+   	[Indicator 3.4PProcu],
+	[Indicator 4PProcu],
+	[Indicator 4.2PProcu],
+	[Indicator 4.3PProcu],
+	[Indicator 4.4PProcu],
+	[Indicator 5PProcu],
+	[Indicator 5.2PProcu],
+	[Indicator 5.3PProcu],
+	[Indicator 5.4PProcu],
+	[Indicator 6PProcu],
+	[Indicator 6.2PProcu],
+	[Indicator 6.3PProcu],
+	[Indicator 6.4PProcu],
+	[Indicator 7PProcu],
+	[Indicator 7.2PProcu],
+	[Indicator 7.3PProcu],
+    [Indicator 7.4PProcu],
+	[Indicator 8PProcu],
+	[Indicator 8.2PProcu],
+	[Indicator 8.3PProcu],
+    [Indicator 8.4PProcu],
+	[Indicator 9PProcu],
+	[Indicator 9.2PProcu],
+	[Indicator 9.3PProcu],
+	[Indicator 9.4PProcu],
+	[Indicator 10PProcu],
+	[Indicator 10.2PProcu],
+	[Indicator 10.3PProcu],
+	[Indicator 10.4PProcu],
+	[Indicator 11PProcu],
+	[Indicator 11.2PProcu],
+	[Indicator 11.3PProcu],
+    [Indicator 11.4PProcu],
+	[Indicator 12PProcu],
+	[Indicator 12.2PProcu],
+	[Indicator 12.3PProcu],
+	[Indicator 12.4PProcu],
+// --------------------------------------------------------------
+    IndicatorGroup_ID,
+	[Indicator 1Certis EG-CC],
+    [Indicator 1Certis EG-PT],
+    [Indicator 1Certis EG-INS],
+    [Sum eCertis indic 1.1],
+    [Indicator 2Certis EG-CC],
+    [Indicator 2Certis EG-PT],
+    [Indicator 2Certis EG-INS],
+    [Sum eCertis indic 2.1],
+    [Indicator 1Certis SC-EF],
+    [Indicator 1Certis SC-QA],
+    [Indicator 1Certis SC-ST],
+    [Indicator 1Certis SC-TP],
+    [Sum eCertis indic 1.2],
+    [Indicator 2Certis SC-EF],
+    [Indicator 2Certis SC-QA],
+    [Indicator 2Certis SC-ST],
+    [Indicator 2Certis SC-TP],
+    [Sum eCertis indic 2.2],
+    [Evidence types],
+	[eCertis evicences],
+	[Proced evidence],
+    [Percentage of items of evidence available online],
+	[Percentage of items of evidence with samples],
+// --------------------------------------------------------------
+    [Indicator Res Architect Last_Year],
+    [Indicator Res Architect Base_Year],
+    [Indicator Res Accountant Last_Year],
+    [Indicator Res Accountant Base_Year],
+    [Indicator Res Engineer Last_Year],
+    [Indicator Res Engineer Base_Year],
+    [Indicator Res Lawyer Last_Year],
+    [Indicator Res Lawyer Base_Year],
+    [Indicator Res RE_Agent Last_Year],
+    [Indicator Res RE_Agent Base_Year],
+    [Indicator Res Patent_Agent Last_Year],
+    [Indicator Res Patent_Agent Base_Year],
+    [Indicator Res Tourist guide Last_Year],
+    [Indicator Res Tourist guide Base_Year],
+    [Pending Recognition],
+    [Negative Recognition],
+    [Positive Recognition]
+Resident [ALLMETRICS_Admin_Market_PProcu_Ecertis_Services];
+// --------------------------------------------------------------
+outer join
+LOAD
+    [ISO_code],
+    [Priority letters Domestic],
+    [Priority letters intra EU],
+    [Priority letters Change]
+Resident [Priority letter prices];
+
+
+
+Drop Table ALLMETRICS_Admin_Market_PProcu_Ecertis_Services, [Priority letter prices];
+
+
+
+
+
+
+
+
+
+
+
+///$tab 7.- Access to finance
+[Public financial support]:
+LOAD
+    [x1val]								AS [ISO_code],
+    num([y1val])						AS [Public financial support Year1],
+    [y2val]								AS [Public financial support Year2]
+    
+where [x1val] <> 'Country';
+
+LIB CONNECT TO '$(text_connection)REST_PA_ATF_ACC_PUB_SUP.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val",
+	"y2val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+
+[Time to get paid by businesses days]:
+LOAD
+    [x1val]								AS [ISO_code],
+    [y1val]								AS [Time to get paid]
+    
+where [x1val] <> 'Country'; 
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_ATF_TIME_PAID_BUS.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+[Venture capital]:
+LOAD
+    [x1val]								AS [ISO_code],
+    [y1val]								AS [Venture capital Year1],
+    [y2val]								AS [Venture capital Year2],
+    [y3val]								AS [Venture capital Change]
+
+where [x1val] <> 'Country';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_ATF_VEN_CAP_GDP.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val",
+	"y2val",
+	"y3val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+
+ALLMETRICS_Admin_Market_PProcu_Ecertis_Services_Postal_Finance:
+NoConcatenate
+LOAD
+    [ISO_code],
+    [Reg_Year],
+    [Reg_Rate],
+    [Bus_Year],
+    [Delays_Year1],
+    [Delays_Year2],
+    [Insolventy_Year],
+    [Impact_Major_Obs],
+    [Impact_Minor_Obs],
+    [Impact_Growth],
+// --------------------------------------------------------------
+    [Inv_COU_LastYear],
+    [Inv_COU_Change],
+    [NonInv_PER_LastYear],
+    [NonInv_PER_Change],
+// --------------------------------------------------------------
+	[Indicator 1PProcu],
+	[Indicator 1.2PProcu],
+	[Indicator 1.3PProcu],
+	[Indicator 1.4PProcu],
+	[Indicator 2PProcu],
+	[Indicator 2.2PProcu],
+	[Indicator 2.3PProcu],
+	[Indicator 2.4PProcu],
+	[Indicator 3PProcu],
+	[Indicator 3.2PProcu],
+	[Indicator 3.3PProcu],
+   	[Indicator 3.4PProcu],
+	[Indicator 4PProcu],
+	[Indicator 4.2PProcu],
+	[Indicator 4.3PProcu],
+	[Indicator 4.4PProcu],
+	[Indicator 5PProcu],
+	[Indicator 5.2PProcu],
+	[Indicator 5.3PProcu],
+	[Indicator 5.4PProcu],
+	[Indicator 6PProcu],
+	[Indicator 6.2PProcu],
+	[Indicator 6.3PProcu],
+	[Indicator 6.4PProcu],
+	[Indicator 7PProcu],
+	[Indicator 7.2PProcu],
+	[Indicator 7.3PProcu],
+    [Indicator 7.4PProcu],
+	[Indicator 8PProcu],
+	[Indicator 8.2PProcu],
+	[Indicator 8.3PProcu],
+    [Indicator 8.4PProcu],
+	[Indicator 9PProcu],
+	[Indicator 9.2PProcu],
+	[Indicator 9.3PProcu],
+	[Indicator 9.4PProcu],
+	[Indicator 10PProcu],
+	[Indicator 10.2PProcu],
+	[Indicator 10.3PProcu],
+	[Indicator 10.4PProcu],
+	[Indicator 11PProcu],
+	[Indicator 11.2PProcu],
+	[Indicator 11.3PProcu],
+    [Indicator 11.4PProcu],
+	[Indicator 12PProcu],
+	[Indicator 12.2PProcu],
+	[Indicator 12.3PProcu],
+	[Indicator 12.4PProcu],
+// --------------------------------------------------------------
+    IndicatorGroup_ID,
+	[Indicator 1Certis EG-CC],
+    [Indicator 1Certis EG-PT],
+    [Indicator 1Certis EG-INS],
+    [Sum eCertis indic 1.1],
+    [Indicator 2Certis EG-CC],
+    [Indicator 2Certis EG-PT],
+    [Indicator 2Certis EG-INS],
+    [Sum eCertis indic 2.1],
+    [Indicator 1Certis SC-EF],
+    [Indicator 1Certis SC-QA],
+    [Indicator 1Certis SC-ST],
+    [Indicator 1Certis SC-TP],
+    [Sum eCertis indic 1.2],
+    [Indicator 2Certis SC-EF],
+    [Indicator 2Certis SC-QA],
+    [Indicator 2Certis SC-ST],
+    [Indicator 2Certis SC-TP],
+    [Sum eCertis indic 2.2],
+    [Evidence types],
+	[eCertis evicences],
+	[Proced evidence],
+    [Percentage of items of evidence available online],
+	[Percentage of items of evidence with samples],
+// --------------------------------------------------------------
+    [Indicator Res Architect Last_Year],
+    [Indicator Res Architect Base_Year],
+    [Indicator Res Accountant Last_Year],
+    [Indicator Res Accountant Base_Year],
+    [Indicator Res Engineer Last_Year],
+    [Indicator Res Engineer Base_Year],
+    [Indicator Res Lawyer Last_Year],
+    [Indicator Res Lawyer Base_Year],
+    [Indicator Res RE_Agent Last_Year],
+    [Indicator Res RE_Agent Base_Year],
+    [Indicator Res Patent_Agent Last_Year],
+    [Indicator Res Patent_Agent Base_Year],
+    [Indicator Res Tourist guide Last_Year],
+    [Indicator Res Tourist guide Base_Year],
+    [Pending Recognition],
+    [Negative Recognition],
+    [Positive Recognition],
+// --------------------------------------------------------------
+    [Priority letters Domestic],
+    [Priority letters intra EU],
+    [Priority letters Change]
+Resident [ALLMETRICS_Admin_Market_PProcu_Ecertis_Services_Postal];
+// --------------------------------------------------------------
+left join
+LOAD
+    [ISO_code],
+    [Public financial support Year1],
+    [Public financial support Year2]
+Resident [Public financial support];
+left join
+LOAD
+    [ISO_code],
+    [Time to get paid]
+Resident [Time to get paid by businesses days];
+outer join
+LOAD
+    [ISO_code],
+    [Venture capital Year1],
+    [Venture capital Year2],
+    [Venture capital Change]
+Resident [Venture capital];
+
+
+Drop Table [Public financial support], [Time to get paid by businesses days], [Venture capital];
+
+Drop Table ALLMETRICS_Admin_Market_PProcu_Ecertis_Services_Postal;
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+///$tab 8.- Labor Mobility
+[Labor mobility]:
+LOAD
+   	[x1val] 						AS [ISO_code],
+    [x2val] 						AS [share 2020],
+    [x3val] 						AS [change 2017-2020]
+
+where [x1val] <> 'Countries' and [x1val] <> 'IS'and [x1val] <> 'NO' and [x1val] <> 'LI';
+    
+LIB CONNECT TO '$(text_connection)REST_PA_EUR_MOB.csv';
+
+SQL SELECT 
+	"x1val",
+	"x2val",
+	"x3val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+[indicator 1Eures]:
+LOAD
+	[x1val] 						AS [ISO_code],
+	[y1val] 						AS [Indicator 1Eures]
+
+where [x1val] <> 'Edition' and [x1val] <> 'UK' and [x1val] <> '';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_EUR_PMS_COM_1.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+[indicator 2Eures]:
+LOAD
+	[x1val] 						AS [ISO_code],
+	[y1val] 						AS [Indicator 2Eures]
+
+where [x1val] <> 'Edition' and [x1val] <> 'UK' and [x1val] <> '';
+    
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_EUR_IT_COM_2.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+[indicator 3Eures]:
+LOAD
+	[x1val] 						AS [ISO_code],
+	[y1val] 						AS [Indicator 3Eures]
+
+where [x1val] <> 'Edition' and [x1val] <> 'UK' and [x1val] <> '';
+   
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_EUR_LAB_MAR_3.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val",
+	"y2val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+[indicator 4Eures]:
+LOAD
+	[x1val] 						AS [ISO_code],
+	[y1val] 						AS [Indicator 4Eures]
+
+where [x1val] <> 'Edition' and [x1val] <> 'UK' and [x1val] <> '';
+    
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_EUR_USE_SAT_4.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+[indicator 5Eures]:
+LOAD
+	[x1val] 						AS [ISO_code],
+	[y1val] 						AS [Indicator 5Eures]
+
+where [x1val] <> 'Edition' and [x1val] <> 'UK' and [x1val] <> '';
+   
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_EUR_JOB_PLA_5.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val",
+	"y2val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+
+
+// ALLMETRICS_Admin_Market_PProcu_Ecertis_Services_Postal_Finance_Eures:
+ALLMETRICS_Final:
+NoConcatenate
+LOAD
+    [ISO_code],
+    [Reg_Year],
+    [Reg_Rate],
+    [Bus_Year],
+    [Delays_Year1],
+    [Delays_Year2],
+    [Insolventy_Year],
+    [Impact_Major_Obs],
+    [Impact_Minor_Obs],
+    [Impact_Growth],
+// --------------------------------------------------------------
+    [Inv_COU_LastYear],
+    [Inv_COU_Change],
+    [NonInv_PER_LastYear],
+    [NonInv_PER_Change],
+// --------------------------------------------------------------
+	[Indicator 1PProcu],
+	[Indicator 1.2PProcu],
+	[Indicator 1.3PProcu],
+	[Indicator 1.4PProcu],
+	[Indicator 2PProcu],
+	[Indicator 2.2PProcu],
+	[Indicator 2.3PProcu],
+	[Indicator 2.4PProcu],
+	[Indicator 3PProcu],
+	[Indicator 3.2PProcu],
+	[Indicator 3.3PProcu],
+   	[Indicator 3.4PProcu],
+	[Indicator 4PProcu],
+	[Indicator 4.2PProcu],
+	[Indicator 4.3PProcu],
+	[Indicator 4.4PProcu],
+	[Indicator 5PProcu],
+	[Indicator 5.2PProcu],
+	[Indicator 5.3PProcu],
+	[Indicator 5.4PProcu],
+	[Indicator 6PProcu],
+	[Indicator 6.2PProcu],
+	[Indicator 6.3PProcu],
+	[Indicator 6.4PProcu],
+	[Indicator 7PProcu],
+	[Indicator 7.2PProcu],
+	[Indicator 7.3PProcu],
+    [Indicator 7.4PProcu],
+	[Indicator 8PProcu],
+	[Indicator 8.2PProcu],
+	[Indicator 8.3PProcu],
+    [Indicator 8.4PProcu],
+	[Indicator 9PProcu],
+	[Indicator 9.2PProcu],
+	[Indicator 9.3PProcu],
+	[Indicator 9.4PProcu],
+	[Indicator 10PProcu],
+	[Indicator 10.2PProcu],
+	[Indicator 10.3PProcu],
+	[Indicator 10.4PProcu],
+	[Indicator 11PProcu],
+	[Indicator 11.2PProcu],
+	[Indicator 11.3PProcu],
+    [Indicator 11.4PProcu],
+	[Indicator 12PProcu],
+	[Indicator 12.2PProcu],
+	[Indicator 12.3PProcu],
+	[Indicator 12.4PProcu],
+// --------------------------------------------------------------
+    IndicatorGroup_ID,
+	[Indicator 1Certis EG-CC],
+    [Indicator 1Certis EG-PT],
+    [Indicator 1Certis EG-INS],
+    [Sum eCertis indic 1.1],
+    [Indicator 2Certis EG-CC],
+    [Indicator 2Certis EG-PT],
+    [Indicator 2Certis EG-INS],
+    [Sum eCertis indic 2.1],
+    [Indicator 1Certis SC-EF],
+    [Indicator 1Certis SC-QA],
+    [Indicator 1Certis SC-ST],
+    [Indicator 1Certis SC-TP],
+    [Sum eCertis indic 1.2],
+    [Indicator 2Certis SC-EF],
+    [Indicator 2Certis SC-QA],
+    [Indicator 2Certis SC-ST],
+    [Indicator 2Certis SC-TP],
+    [Sum eCertis indic 2.2],
+    [Evidence types],
+	[eCertis evicences],
+	[Proced evidence],
+    [Percentage of items of evidence available online],
+	[Percentage of items of evidence with samples],
+// --------------------------------------------------------------
+    [Indicator Res Architect Last_Year],
+    [Indicator Res Architect Base_Year],
+    [Indicator Res Accountant Last_Year],
+    [Indicator Res Accountant Base_Year],
+    [Indicator Res Engineer Last_Year],
+    [Indicator Res Engineer Base_Year],
+    [Indicator Res Lawyer Last_Year],
+    [Indicator Res Lawyer Base_Year],
+    [Indicator Res RE_Agent Last_Year],
+    [Indicator Res RE_Agent Base_Year],
+    [Indicator Res Patent_Agent Last_Year],
+    [Indicator Res Patent_Agent Base_Year],
+    [Indicator Res Tourist guide Last_Year],
+    [Indicator Res Tourist guide Base_Year],
+    [Pending Recognition],
+    [Negative Recognition],
+    [Positive Recognition],
+// --------------------------------------------------------------
+    [Priority letters Domestic],
+    [Priority letters intra EU],
+    [Priority letters Change],
+// --------------------------------------------------------------
+    [Public financial support Year1],
+    [Public financial support Year2],
+    [Time to get paid],
+    [Venture capital Year1],
+    [Venture capital Year2],
+    [Venture capital Change]
+Resident [ALLMETRICS_Admin_Market_PProcu_Ecertis_Services_Postal_Finance];
+// --------------------------------------------------------------
+left Join
+LOAD
+   	[ISO_code],
+    [share 2020],
+    [change 2017-2020]
+Resident [Labor mobility];
+outer join
+LOAD
+	[ISO_code],
+	[Indicator 1Eures]
+Resident [indicator 1Eures];
+left join
+LOAD
+	[ISO_code],
+	[Indicator 2Eures]
+Resident [indicator 2Eures];
+left join
+LOAD
+	[ISO_code],
+	[Indicator 3Eures]
+Resident [indicator 3Eures];
+left join
+LOAD
+	[ISO_code],
+	[Indicator 4Eures]
+Resident [indicator 4Eures];
+left join
+LOAD
+	[ISO_code],
+	[Indicator 5Eures]
+Resident [indicator 5Eures];
+
+
+Drop Table [Labor mobility], [indicator 1Eures], [indicator 2Eures], [indicator 3Eures], [indicator 4Eures], [indicator 5Eures];
+
+Drop Table ALLMETRICS_Admin_Market_PProcu_Ecertis_Services_Postal_Finance;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+///$tab Exit
+Exit Script;

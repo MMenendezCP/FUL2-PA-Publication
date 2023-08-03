@@ -1,0 +1,514 @@
+///$tab 4.- eCertis
+[indicator 1Certis EG-CC]:
+LOAD
+	[x1val] 							AS [eCertis],
+	[y1val] 							AS [Indicator 1Certis EG-CC]
+    
+where [x1val] <> 'Edition' and [x1val] <> 'UK' and [x1val] <> '';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_ECE_EG_CC_1.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+
+[indicator 1Certis EG-PT]:
+LOAD
+	[x1val] 							AS [eCertis],
+	[y1val] 							AS [Indicator 1Certis EG-PT]
+
+where [x1val] <> 'Edition' and [x1val] <> 'UK' and [x1val] <> '';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_ECE_EG_PT_1.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+[indicator 1Certis EG-INS]:
+LOAD
+	[x1val] 							AS [eCertis],
+	[y1val] 							AS [Indicator 1Certis EG-INS]
+
+where [x1val] <> 'Edition' and [x1val] <> 'UK' and [x1val] <> '';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_ECE_EG_INS_1.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+[indicator 2Certis EG-CC]:
+LOAD
+	[x1val] 							AS [eCertis],
+	[y1val] 							AS [Indicator 2Certis EG-CC]
+
+where [x1val] <> 'Edition' and [x1val] <> 'UK' and [x1val] <> '';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_ECE_EG_CC_2.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+[indicator 2Certis EG-PT]:
+LOAD
+	[x1val] 							AS [eCertis],
+	[y1val] 							AS [Indicator 2Certis EG-PT]
+
+where [x1val] <> 'Edition' and [x1val] <> 'UK' and [x1val] <> '';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_ECE_EG_PT_2.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+[indicator 2Certis EG-INS]:
+LOAD
+	[x1val] 							AS [eCertis],
+	[y1val] 							AS [Indicator 2Certis EG-INS]
+
+where [x1val] <> 'Edition' and [x1val] <> 'UK' and [x1val] <> '';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_ECE_EG_INS_2.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+[indicator 1Certis SC-EF]:
+LOAD
+	[x1val] 							AS [eCertis],
+	[y1val] 							AS [Indicator 1Certis SC-EF]
+    
+where [x1val] <> 'Edition' and [x1val] <> 'UK' and [x1val] <> '';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_ECE_SC_EF_1.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+[indicator 1Certis SC-QA]:
+LOAD
+	[x1val] 							AS [eCertis],
+	[y1val] 							AS [Indicator 1Certis SC-QA]
+
+where [x1val] <> 'Edition' and [x1val] <> 'UK' and [x1val] <> '';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_ECE_SC_QA_1.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+[indicator 1Certis SC-ST]:
+LOAD
+	[x1val] 							AS [eCertis],
+	[y1val] 							AS [Indicator 1Certis SC-ST]
+
+where [x1val] <> 'Edition' and [x1val] <> 'UK' and [x1val] <> '';
+    
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_ECE_SC_ST_1.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+[indicator 1Certis SC-TP]:
+LOAD
+	[x1val] 							AS [eCertis],
+	[y1val] 							AS [Indicator 1Certis SC-TP]
+
+where [x1val] <> 'Edition' and [x1val] <> 'UK' and [x1val] <> '';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_ECE_SC_TP_1.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+[indicator 2Certis SC-EF]:
+LOAD
+	[x1val] 							AS [eCertis],
+	[y1val] 							AS [Indicator 2Certis SC-EF]
+
+where [x1val] <> 'Edition' and [x1val] <> 'UK' and [x1val] <> '';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_ECE_SC_EF_2.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+[indicator 2Certis SC-QA]:
+LOAD
+	[x1val] 							AS [eCertis],
+	[y1val] 							AS [Indicator 2Certis SC-QA]
+
+where [x1val] <> 'Edition' and [x1val] <> 'UK' and [x1val] <> '';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_ECE_SC_QA_2.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+[indicator 2Certis SC-ST]:
+LOAD
+	[x1val] 							AS [eCertis],
+	[y1val] 							AS [Indicator 2Certis SC-ST]
+
+where [x1val] <> 'Edition' and [x1val] <> 'UK' and [x1val] <> '';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_ECE_SC_ST_2.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+[indicator 2Certis SC-TP]:
+LOAD
+	[x1val] 							AS [eCertis],
+	[y1val] 							AS [Indicator 2Certis SC-TP]
+
+where [x1val] <> 'Edition' and [x1val] <> 'UK' and [x1val] <> '';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_ECE_SG_TP_2.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+[Evidence types]:
+LOAD
+	[x2val] 							AS [eCertis],
+    [x1val] 							AS [Evidence types],
+	[y1val] 							AS [eCertis evicences]
+
+where [x1val] <> 'Type' and [x2val] <> 'UK';
+    
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_ECE_EVI_TYP.csv';
+
+SQL SELECT 
+	"x2val",
+	"x1val",
+	"y1val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+[proced evidence]:
+LOAD
+	[x1val] 							AS [eCertis],
+	[y1val] 							AS [Proced evidence]
+
+where [x1val] <> 'Country' and [x1val] <> 'UK' and [x1val] <> '';
+    
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_ECE_PRI_EVI.csv';
+
+
+SQL SELECT 
+	"x1val",
+	"y1val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+[percentage of items of evidence available online]:
+LOAD
+	[x1val] 							AS [eCertis],
+    [y1val] 							AS [Percentage of items of evidence available online]
+
+where [x1val] <> 'Country' and [x1val] <> 'UK' and [x1val] <> '';
+    
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_ECE_PER_ITE_EVI.csv';
+
+
+SQL SELECT 
+	"x1val",
+	"y1val" 
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+[percentage of items of evidence with samples]:
+LOAD
+	[x1val] 							AS [eCertis],
+	[y1val] 							AS [Percentage of items of evidence with samples]
+
+where [x1val] <> 'Country' and [x1val] <> 'UK' and [x1val] <> '';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_ECE_ITE_EVI_SAM.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+
+ALLMETRICS_Ecertis_aux:
+// --------------------------------------------------------------
+NoConcatenate
+LOAD
+	[eCertis],
+    'Criteria completeness [1]' 		AS IndicatorGroup_ID,
+	[Indicator 1Certis EG-CC]
+Resident [indicator 1Certis EG-CC];
+outer Join
+LOAD
+	[eCertis],
+    'Criteria completeness [1]' 		AS IndicatorGroup_ID,
+	[Indicator 1Certis EG-PT]
+Resident [indicator 1Certis EG-PT];
+outer Join
+LOAD
+	[eCertis],
+    'Criteria completeness [1]' 		AS IndicatorGroup_ID,
+	[Indicator 1Certis EG-INS]
+Resident [indicator 1Certis EG-INS];
+outer Join
+LOAD
+	[eCertis],
+    'Evidence completeness [2]'			AS IndicatorGroup_ID,
+	[Indicator 2Certis EG-CC]
+    
+Resident [indicator 2Certis EG-CC];
+left Join
+LOAD
+	[eCertis],
+    'Evidence completeness [2]'			AS IndicatorGroup_ID,
+	[Indicator 2Certis EG-PT]
+    
+Resident [indicator 2Certis EG-PT];
+left Join
+LOAD
+	[eCertis],
+    'Evidence completeness [2]'			AS IndicatorGroup_ID,
+	[Indicator 2Certis EG-INS]
+    
+Resident [indicator 2Certis EG-INS];
+left Join
+LOAD
+	[eCertis],
+    'Criteria completeness [1]' 		AS IndicatorGroup_ID,
+	[Indicator 1Certis SC-EF]
+    
+Resident [indicator 1Certis SC-EF];
+left Join
+LOAD
+	[eCertis],
+    'Criteria completeness [1]' 		AS IndicatorGroup_ID,
+	[Indicator 1Certis SC-QA]
+    
+Resident [indicator 1Certis SC-QA];
+left Join
+LOAD
+	[eCertis],
+    'Criteria completeness [1]' 		AS IndicatorGroup_ID,
+	[Indicator 1Certis SC-ST]
+    
+Resident [indicator 1Certis SC-ST];
+left Join
+LOAD
+	[eCertis],
+    'Criteria completeness [1]' 		AS IndicatorGroup_ID,
+	[Indicator 1Certis SC-TP]
+    
+Resident [indicator 1Certis SC-TP];
+left Join
+LOAD
+	[eCertis],
+    'Evidence completeness [2]'			AS IndicatorGroup_ID,
+	[Indicator 2Certis SC-EF]
+    
+Resident [indicator 2Certis SC-EF];
+left join
+LOAD
+	[eCertis],
+    'Evidence completeness [2]'			AS IndicatorGroup_ID,
+	[Indicator 2Certis SC-QA]
+    
+Resident [indicator 2Certis SC-QA];
+outer Join
+LOAD
+	[eCertis],
+    'Evidence completeness [2]'			AS IndicatorGroup_ID,
+	[Indicator 2Certis SC-ST]
+    
+Resident [indicator 2Certis SC-ST];
+left Join
+LOAD
+	[eCertis],
+    'Evidence completeness [2]'			AS IndicatorGroup_ID,
+	[Indicator 2Certis SC-TP]
+    
+Resident [indicator 2Certis SC-TP];
+
+
+
+
+
+Drop Table [indicator 1Certis EG-CC], [indicator 1Certis EG-PT], [indicator 1Certis EG-INS], [indicator 2Certis EG-CC], [indicator 2Certis EG-PT], [indicator 2Certis EG-INS];
+
+Drop Table [indicator 1Certis SC-EF], [indicator 1Certis SC-QA], [indicator 1Certis SC-ST], [indicator 1Certis SC-TP], [indicator 2Certis SC-EF], [indicator 2Certis SC-QA], [indicator 2Certis SC-ST], [indicator 2Certis SC-TP];
+
+
+
+
+
+ALLMETRICS_Admin_Market_PProcu_Ecertis:
+// --------------------------------------------------------------
+NoConcatenate
+LOAD
+    [ISO_code],
+    [Reg_Year],
+    [Reg_Rate],
+    [Bus_Year],
+    [Delays_Year1],
+    [Delays_Year2],
+    [Insolventy_Year],
+    [Impact_Major_Obs],
+    [Impact_Minor_Obs],
+    [Impact_Growth],
+// --------------------------------------------------------------
+    [Inv_COU_LastYear],
+    [Inv_COU_Change],
+    [NonInv_PER_LastYear],
+    [NonInv_PER_Change],
+// --------------------------------------------------------------
+	[Indicator 1PProcu],
+	[Indicator 1.2PProcu],
+	[Indicator 1.3PProcu],
+	[Indicator 1.4PProcu],
+	[Indicator 2PProcu],
+	[Indicator 2.2PProcu],
+	[Indicator 2.3PProcu],
+	[Indicator 2.4PProcu],
+	[Indicator 3PProcu],
+	[Indicator 3.2PProcu],
+	[Indicator 3.3PProcu],
+   	[Indicator 3.4PProcu],
+	[Indicator 4PProcu],
+	[Indicator 4.2PProcu],
+	[Indicator 4.3PProcu],
+	[Indicator 4.4PProcu],
+	[Indicator 5PProcu],
+	[Indicator 5.2PProcu],
+	[Indicator 5.3PProcu],
+	[Indicator 5.4PProcu],
+	[Indicator 6PProcu],
+	[Indicator 6.2PProcu],
+	[Indicator 6.3PProcu],
+	[Indicator 6.4PProcu],
+	[Indicator 7PProcu],
+	[Indicator 7.2PProcu],
+	[Indicator 7.3PProcu],
+    [Indicator 7.4PProcu],
+	[Indicator 8PProcu],
+	[Indicator 8.2PProcu],
+	[Indicator 8.3PProcu],
+    [Indicator 8.4PProcu],
+	[Indicator 9PProcu],
+	[Indicator 9.2PProcu],
+	[Indicator 9.3PProcu],
+	[Indicator 9.4PProcu],
+	[Indicator 10PProcu],
+	[Indicator 10.2PProcu],
+	[Indicator 10.3PProcu],
+	[Indicator 10.4PProcu],
+	[Indicator 11PProcu],
+	[Indicator 11.2PProcu],
+	[Indicator 11.3PProcu],
+    [Indicator 11.4PProcu],
+	[Indicator 12PProcu],
+	[Indicator 12.2PProcu],
+	[Indicator 12.3PProcu],
+	[Indicator 12.4PProcu]
+Resident [ALLMETRICS_Admin_Market_PProcu];
+// --------------------------------------------------------------
+left Join
+LOAD
+	[eCertis]																															AS [ISO_code],
+    IndicatorGroup_ID,
+	[Indicator 1Certis EG-CC],
+    [Indicator 1Certis EG-PT],
+    [Indicator 1Certis EG-INS],
+    round(([Indicator 1Certis EG-CC] + [Indicator 1Certis EG-PT] + [Indicator 1Certis EG-INS])/3) 										AS [Sum eCertis indic 1.1],
+    [Indicator 2Certis EG-CC],
+    [Indicator 2Certis EG-PT],
+    [Indicator 2Certis EG-INS],
+    round(([Indicator 2Certis EG-CC] + [Indicator 2Certis EG-PT] + [Indicator 2Certis EG-INS])) 										AS [Sum eCertis indic 2.1],
+    [Indicator 1Certis SC-EF],
+    [Indicator 1Certis SC-QA],
+    [Indicator 1Certis SC-ST],
+    [Indicator 1Certis SC-TP],
+    round(([Indicator 1Certis SC-EF] + [Indicator 1Certis SC-QA] + [Indicator 1Certis SC-ST] + [Indicator 1Certis SC-TP])/4)			AS [Sum eCertis indic 1.2],
+    [Indicator 2Certis SC-EF],
+    [Indicator 2Certis SC-QA],
+    [Indicator 2Certis SC-ST],
+    [Indicator 2Certis SC-TP],
+    round(([Indicator 2Certis SC-EF] + [Indicator 2Certis SC-QA] + [Indicator 2Certis SC-ST] + [Indicator 2Certis SC-TP]))				AS [Sum eCertis indic 2.2]
+Resident ALLMETRICS_Ecertis_aux;
+left Join
+LOAD
+	[eCertis]																															AS [ISO_code],
+    [Evidence types],
+	[eCertis evicences]
+Resident [Evidence types];
+left Join
+LOAD	
+	[eCertis]																															AS [ISO_code],
+	[Proced evidence]
+Resident [proced evidence];    
+left Join
+LOAD
+	[eCertis]																															AS [ISO_code],
+    [Percentage of items of evidence available online]
+Resident [percentage of items of evidence available online];
+left Join
+LOAD
+	[eCertis]																															AS [ISO_code],
+	[Percentage of items of evidence with samples]
+Resident [percentage of items of evidence with samples];
+
+
+Drop Table ALLMETRICS_Ecertis_aux, ALLMETRICS_Admin_Market_PProcu, [Evidence types], [proced evidence], [percentage of items of evidence available online], [percentage of items of evidence with samples];

@@ -1,0 +1,314 @@
+///$tab 5.- Access to Services
+[Restrictiveness indicator - Architect]:
+LOAD
+    [x1val] 						AS [ISO_code],
+    [y1val] 						AS [Indicator Res Architect Last_Year],
+    [y2val] 						AS [Indicator Res Architect Base_Year]
+    
+where [x1val]<>'';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_PS_RES_ARCH.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val",
+	"y2val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+
+[Restrictiveness indicator - Accountant]:
+LOAD
+    [x1val] 						AS [ISO_code],
+    [y1val] 						AS [Indicator Res Accountant Last_Year],
+    [y2val] 						AS [Indicator Res Accountant Base_Year]
+
+where [x1val]<>'';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_PS_RES_ACC.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val",
+	"y2val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+
+[Restrictiveness indicator - Civil engineer]:
+LOAD
+    [x1val] 						AS [ISO_code],
+    [y1val] 						AS [Indicator Res Engineer Last_Year],
+    [y2val] 						AS [Indicator Res Engineer Base_Year]
+    
+where [x1val]<>'';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_PS_RES_CIV_ENG.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val",
+	"y2val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+[Restrictiveness indicator - Lawyer]:
+LOAD
+    [x1val] 						AS [ISO_code],
+    [y1val] 						AS [Indicator Res Lawyer Last_Year],
+    [y2val] 						AS [Indicator Res Lawyer Base_Year]
+    
+where [x1val]<>'';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_PS_RES_LAW.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val",
+	"y2val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+[Restrictiveness indicator - Real Estate Agent]:
+LOAD
+    [x1val] 						AS [ISO_code],
+    [y1val] 						AS [Indicator Res RE_Agent Last_Year],
+    [y2val] 						AS [Indicator Res RE_Agent Base_Year] 
+    
+where [x1val]<>'';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_PS_RES_REAL_EST_AG.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val",
+	"y2val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+[Restrictiveness indicator - Patent Agent]:
+LOAD
+    [x1val] 						AS [ISO_code],
+    [y1val] 						AS [Indicator Res Patent_Agent Last_Year],
+    [y2val] 						AS [Indicator Res Patent_Agent Base_Year]
+    
+where [x1val]<>''; 
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_PS_RES_PAT_AG.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val",
+	"y2val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+[Restrictiveness indicator - Tourist guide]:
+LOAD
+    [x1val] 						AS [ISO_code],
+    [y1val] 						AS [Indicator Res Tourist guide Last_Year],
+    [y2val] 						AS [Indicator Res Tourist guide Base_Year]
+    
+where [x1val]<>'';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_PS_RES_TOU_GUI.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val",
+	"y2val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+[Positive recognition rates]:
+LOAD
+    [x1val] 						AS [Profession],
+    [y1val] 						AS [Positive recognition rates]
+    
+where [x1val]<>'';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_PS_RES_RECO_PRO.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+[Recognition of qualifications]:
+NoConcatenate
+LOAD
+    [x1val] 						AS [ISO_code],
+    [x2val] 						AS [Pending Recognition],
+    [x3val] 						AS [Negative Recognition],
+    [x4val] 						AS [Positive Recognition]
+    
+where [x1val]<>'';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_PS_RES_RECO_DEC.csv';
+
+SQL SELECT 
+	"x1val",
+	"x2val",
+	"x3val",
+	"x4val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+
+ALLMETRICS_Admin_Market_PProcu_Ecertis_Services:
+// --------------------------------------------------------------
+NoConcatenate
+LOAD
+    [ISO_code],
+    [Reg_Year],
+    [Reg_Rate],
+    [Bus_Year],
+    [Delays_Year1],
+    [Delays_Year2],
+    [Insolventy_Year],
+    [Impact_Major_Obs],
+    [Impact_Minor_Obs],
+    [Impact_Growth],
+// --------------------------------------------------------------
+    [Inv_COU_LastYear],
+    [Inv_COU_Change],
+    [NonInv_PER_LastYear],
+    [NonInv_PER_Change],
+// --------------------------------------------------------------
+	[Indicator 1PProcu],
+	[Indicator 1.2PProcu],
+	[Indicator 1.3PProcu],
+	[Indicator 1.4PProcu],
+	[Indicator 2PProcu],
+	[Indicator 2.2PProcu],
+	[Indicator 2.3PProcu],
+	[Indicator 2.4PProcu],
+	[Indicator 3PProcu],
+	[Indicator 3.2PProcu],
+	[Indicator 3.3PProcu],
+   	[Indicator 3.4PProcu],
+	[Indicator 4PProcu],
+	[Indicator 4.2PProcu],
+	[Indicator 4.3PProcu],
+	[Indicator 4.4PProcu],
+	[Indicator 5PProcu],
+	[Indicator 5.2PProcu],
+	[Indicator 5.3PProcu],
+	[Indicator 5.4PProcu],
+	[Indicator 6PProcu],
+	[Indicator 6.2PProcu],
+	[Indicator 6.3PProcu],
+	[Indicator 6.4PProcu],
+	[Indicator 7PProcu],
+	[Indicator 7.2PProcu],
+	[Indicator 7.3PProcu],
+    [Indicator 7.4PProcu],
+	[Indicator 8PProcu],
+	[Indicator 8.2PProcu],
+	[Indicator 8.3PProcu],
+    [Indicator 8.4PProcu],
+	[Indicator 9PProcu],
+	[Indicator 9.2PProcu],
+	[Indicator 9.3PProcu],
+	[Indicator 9.4PProcu],
+	[Indicator 10PProcu],
+	[Indicator 10.2PProcu],
+	[Indicator 10.3PProcu],
+	[Indicator 10.4PProcu],
+	[Indicator 11PProcu],
+	[Indicator 11.2PProcu],
+	[Indicator 11.3PProcu],
+    [Indicator 11.4PProcu],
+	[Indicator 12PProcu],
+	[Indicator 12.2PProcu],
+	[Indicator 12.3PProcu],
+	[Indicator 12.4PProcu],
+// --------------------------------------------------------------
+    IndicatorGroup_ID,
+	[Indicator 1Certis EG-CC],
+    [Indicator 1Certis EG-PT],
+    [Indicator 1Certis EG-INS],
+    [Sum eCertis indic 1.1],
+    [Indicator 2Certis EG-CC],
+    [Indicator 2Certis EG-PT],
+    [Indicator 2Certis EG-INS],
+    [Sum eCertis indic 2.1],
+    [Indicator 1Certis SC-EF],
+    [Indicator 1Certis SC-QA],
+    [Indicator 1Certis SC-ST],
+    [Indicator 1Certis SC-TP],
+    [Sum eCertis indic 1.2],
+    [Indicator 2Certis SC-EF],
+    [Indicator 2Certis SC-QA],
+    [Indicator 2Certis SC-ST],
+    [Indicator 2Certis SC-TP],
+    [Sum eCertis indic 2.2],
+    [Evidence types],
+	[eCertis evicences],
+	[Proced evidence],
+    [Percentage of items of evidence available online],
+	[Percentage of items of evidence with samples]
+Resident [ALLMETRICS_Admin_Market_PProcu_Ecertis];
+// --------------------------------------------------------------
+left Join
+LOAD
+    [ISO_code],
+    [Indicator Res Architect Last_Year],
+    [Indicator Res Architect Base_Year]
+Resident [Restrictiveness indicator - Architect];
+left Join
+LOAD
+    [ISO_code],
+    [Indicator Res Accountant Last_Year],
+    [Indicator Res Accountant Base_Year]
+Resident [Restrictiveness indicator - Accountant];
+left Join
+LOAD
+    [ISO_code],
+    [Indicator Res Engineer Last_Year],
+    [Indicator Res Engineer Base_Year]
+Resident [Restrictiveness indicator - Civil engineer];
+left Join
+LOAD
+    [ISO_code],
+    [Indicator Res Lawyer Last_Year],
+    [Indicator Res Lawyer Base_Year]
+Resident [Restrictiveness indicator - Lawyer];
+left Join
+LOAD
+    [ISO_code],
+    [Indicator Res RE_Agent Last_Year],
+    [Indicator Res RE_Agent Base_Year]
+Resident [Restrictiveness indicator - Real Estate Agent];
+left Join
+LOAD
+    [ISO_code],
+    [Indicator Res Patent_Agent Last_Year],
+    [Indicator Res Patent_Agent Base_Year]
+Resident [Restrictiveness indicator - Patent Agent];
+left Join
+LOAD
+    [ISO_code],
+    [Indicator Res Tourist guide Last_Year],
+    [Indicator Res Tourist guide Base_Year]
+Resident [Restrictiveness indicator - Tourist guide];
+left Join
+LOAD
+    [ISO_code],
+    [Pending Recognition],
+    [Negative Recognition],
+    [Positive Recognition]
+Resident [Recognition of qualifications];
+
+
+Drop Table [Restrictiveness indicator - Architect], [Restrictiveness indicator - Accountant], [Restrictiveness indicator - Civil engineer], [Restrictiveness indicator - Lawyer], [Restrictiveness indicator - Real Estate Agent];
+
+Drop Table [Restrictiveness indicator - Patent Agent], [Restrictiveness indicator - Tourist guide], [Recognition of qualifications];
+
+Drop Table [ALLMETRICS_Admin_Market_PProcu_Ecertis];

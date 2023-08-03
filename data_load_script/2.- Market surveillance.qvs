@@ -1,0 +1,98 @@
+///$tab 2.- Market surveillance
+[Investigations per Member]:
+LOAD
+    [x1val]						AS [ISO_code],
+    [x2val] 					AS [Inv_COU_LastYear],
+    [x3val] 					AS [Inv_COU_Change]
+
+where x1val <> 'Notifying Country';
+    
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_MAR_SUR_INS_PER_COU_New.csv';
+
+SQL SELECT 
+	"x1val",
+	"x2val",
+	"x3val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+
+[Non compliance investigations]:
+LOAD
+    [x1val] 					AS [ISO_code],
+    [x2val] 					AS [NonInv_PER_LastYear],
+    [x3val] 					AS [NonInv_PER_Change]
+    
+where x1val <> 'Notifying Country';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_MAR_SUR_NON_COM_PER_COU_New.csv';
+
+SQL SELECT 
+	"x1val",
+	"x2val",
+	"x3val",
+	"x4val",
+	"x5val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+ALLMETRICS_Admin_Market:
+// --------------------------------------------------------------
+NoConcatenate
+LOAD
+    [ISO_code],
+    [Reg_Year],
+    [Reg_Rate],
+    [Bus_Year],
+    [Delays_Year1],
+    [Delays_Year2],
+    [Insolventy_Year],
+    [Impact_Major_Obs],
+    [Impact_Minor_Obs],
+    [Impact_Growth]
+Resident [ALLMETRICS_Admin];
+// --------------------------------------------------------------
+left Join
+LOAD
+    [ISO_code],
+    [Inv_COU_LastYear],
+    [Inv_COU_Change]
+Resident [Investigations per Member];
+left join
+LOAD
+    [ISO_code],
+    [NonInv_PER_LastYear],
+    [NonInv_PER_Change]
+Resident [Non compliance investigations];
+
+Drop Table [ALLMETRICS_Admin];
+Drop Table [Investigations per Member], [Non compliance investigations];
+
+
+
+
+
+[Highest number of investigations]:
+LOAD
+    [x1val] 					AS [Inv_Sector],
+    [x2val] 					AS [Highest_INV_LastYear],
+    [x3val] 					AS [Highest_NON_COM_LastYear],
+    [x4val] 					AS [Highest_RAN_Change]
+
+where x1val <> 'Row Labels';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_MAR_SUR_12_SEC_YEA_RAN.csv';
+
+SQL SELECT 
+	"x1val",
+	"x2val",
+	"x3val",
+	"x4val",
+	"x5val",
+	"x6val",
+	"x7val",
+	"x8val",
+	"x9val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";

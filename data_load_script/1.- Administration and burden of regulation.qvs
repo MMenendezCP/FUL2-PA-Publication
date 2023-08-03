@@ -1,0 +1,123 @@
+///$tab 1.- Administration and burden of regulation
+[Burden of government regulation]:
+LOAD
+    [x1val]							AS [ISO_code],
+    [x2val]							AS [Reg_Year],
+    [y1val]							AS [Reg_Rate]
+    
+where [x1val] <> 'Country';
+    
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_RAA_BOR_BURN_REG.csv';
+
+SQL SELECT 
+	"x1val",
+	"x2val",
+	"y1val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+[Digital public services for businesses]:
+LOAD
+    [x1val]							AS [ISO_code],
+    [y1val]							AS [Bus_Year]
+    
+where [x1val] <> 'Country';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_RAA_BOR_DIG_PUB_SER.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+[Payment delays by public authorities]:
+LOAD
+    [x1val]							AS [ISO_code],
+    [y1val]							AS [Delays_Year1],
+    [y2val]							AS [Delays_Year2]
+    
+where [x1val] <> 'Country';
+    
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_RAA_BOR_DEL_PAY.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val",
+	"y2val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+
+
+[Insolventy time]:
+
+LOAD
+    [x1val]							AS [ISO_code],
+    [y1val]							AS [Insolventy_Year]
+    
+where [x1val] <> 'Country';
+
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_RAA_BOR_TIME_INSOL.csv';
+
+SQL SELECT 
+	"x1val",
+	"y1val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+[Impact of regulation]:
+
+LOAD
+    [x1val]						AS [ISO_code],
+    [x2val]						AS [Impact_Major_Obs],
+    [x3val]						AS [Impact_Minor_Obs],
+    [x4val]						AS [Impact_Growth]
+    
+where [x1val] <> 'Country';
+    
+LIB CONNECT TO '$(text_connection)REST_PUB-PA_RAA_BOR_L_T_INV.csv';
+
+SQL SELECT 
+	"x1val",
+	"x2val",
+	"x3val",
+	"x4val"
+FROM CSV (header on, delimiter ",", quote """") "CSV_source";
+
+
+ALLMETRICS_Admin:
+// --------------------------------------------------------------
+NoConcatenate
+LOAD
+    [ISO_code],
+    [Reg_Year],
+    [Reg_Rate]
+Resident [Burden of government regulation];
+left join
+LOAD
+    [ISO_code],
+    [Bus_Year]
+Resident [Digital public services for businesses];
+left join
+LOAD
+    [ISO_code],
+    [Delays_Year1],
+    [Delays_Year2]
+Resident [Payment delays by public authorities];
+left join
+LOAD
+    [ISO_code],
+    [Insolventy_Year]
+Resident [Insolventy time];
+left join
+LOAD
+    [ISO_code],
+    [Impact_Major_Obs],
+    [Impact_Minor_Obs],
+    [Impact_Growth]
+Resident [Impact of regulation];
+
+
+Drop Table [Burden of government regulation], [Digital public services for businesses], [Payment delays by public authorities], [Insolventy time], [Impact of regulation];
